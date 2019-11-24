@@ -1,0 +1,11 @@
+{
+    "name": "magitory",
+    "version": "0.17.0",
+    "title": "Magitory",
+    "author": "Nibuja",
+    "contact": "",
+    "homepage": "",
+    "factorio_version": "0.17",
+    "dependencies": ["base >= 0.17"],
+    "description": "Factorio + Magic = WOW!"
+}

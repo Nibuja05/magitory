@@ -1,0 +1,25 @@
+-- data:extend({
+-- 	{
+-- 		type = "technology",
+-- 		name = "logistics_20",
+-- 		icon = "__base__/graphics/technology/logistics.png",
+-- 		icon_size = 128,
+-- 		effects =
+-- 		{
+-- 			{
+-- 				type = "unlock-recipe",
+-- 				recipe = "slow-underground-belt"
+-- 			},
+-- 		},
+-- 		unit =
+-- 		{
+-- 			count = 10,
+-- 			ingredients =
+-- 			{
+-- 				{"science-pack-1", 1}
+-- 			},
+-- 			time = 10
+-- 		},
+-- 		order = "06-04"
+-- 	},
+-- })
