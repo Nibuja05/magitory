@@ -2,8 +2,8 @@
 unrefined_mana_resource =    
 { 
 	type = "resource",
-	name = "unrefined_mana",
-	icon = "__magitory__/graphics/icons/unrefined_mana.png",
+	name = "unrefined-mana",
+	icon = "__magitory__/graphics/icons/unrefined-mana.png",
 	icon_size = 32,
 	flags = {"placeable-neutral"},
 	category = "basic-fluid",
@@ -23,7 +23,7 @@ unrefined_mana_resource =
 		{
 			{
 				type = "fluid",
-				name = "unrefined_mana",
+				name = "unrefined-mana",
 				amount_min = 10,
 				amount_max = 10,
 				probability = 1
@@ -33,7 +33,7 @@ unrefined_mana_resource =
 	collision_box = {{ -1.4, -1.4}, {1.4, 1.4}},
 	selection_box = {{ -0.5, -0.5}, {0.5, 0.5}},
 	autoplace = resource_autoplace.resource_autoplace_settings{
-		name = "unrefined_mana",
+		name = "unrefined-mana",
 		order = "c", -- Other resources are "b"; oil won't get placed if something else is already there.
 		base_density = 8.2,
 		base_spots_per_km2 = 1.8,
@@ -66,15 +66,15 @@ unrefined_mana_resource =
 unrefined_mana = 
 {
 	type = "fluid",
-	name = "unrefined_mana",
+	name = "unrefined-mana",
 	default_temperature = 15,
 	max_temperature = 100,
 	heat_capacity = "0.2KJ",
 	base_color = {r=0, g=0.0, b=0.6},
 	flow_color = {r=0.7, g=0.7, b=0.7},
-	icon = "__magitory__/graphics/icons/unrefined_mana.png",
+	icon = "__magitory__/graphics/icons/unrefined-mana.png",
 	icon_size = 32,
-	order = "a[fluid]-b[unrefined_mana]",
+	order = "a[fluid]-b[unrefined-mana]",
 	pressure_to_speed_ratio = 0.4,
 	flow_to_energy_ratio = 0.59
 }
@@ -82,13 +82,13 @@ unrefined_mana =
 liquid_mana = 
 {
 	type = "fluid",
-	name = "liquid_mana",
+	name = "liquid-mana",
 	default_temperature = 15,
 	max_temperature = 100,
 	heat_capacity = "0.2KJ",
 	base_color = {r=0.1, g=0.5, b=1.0},
 	flow_color = {r=0.0, g=0.0, b=0.7},
-	icon = "__magitory__/graphics/icons/liquid_mana.png",
+	icon = "__magitory__/graphics/icons/liquid-mana.png",
 	icon_size = 32,
 	order = "a[fluid]-b[liquid_mana]",
 	pressure_to_speed_ratio = 0.4,
@@ -98,7 +98,7 @@ liquid_mana =
 unrefined_mana_autoplace =
 {
 	type = "autoplace-control",
-	name = "unrefined_mana",
+	name = "unrefined-mana",
 	richness = true,
 	order = "b-a",
 	category = "resource"
