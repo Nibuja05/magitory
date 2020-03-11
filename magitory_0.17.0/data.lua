@@ -10,11 +10,9 @@
 -- 	},
 -- })
 
-
 require("prototypes.item")
 require("prototypes.recipe")
 require("prototypes.entity")
 require("prototypes.ammoCategory")
 require("prototypes.gun")
 require("prototypes.ammoItem")
-

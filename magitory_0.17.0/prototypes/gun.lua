@@ -8,7 +8,7 @@ data:extend({
         stack_size = 5,
 		attack_parameters ={
 			type = "projectile",
-			range = 30,
+			range = 10,
 			cooldown = 30,
 			ammo_category = "spell",
 			--movement_slow_down_factor = 0.5, --copied by bobswarefare rifle
