@@ -21,6 +21,56 @@ magitory_subgroup =
 	group = "magitory-base",
 }
 
+air_spell_recipe = 
+{
+	type = "recipe",
+	name = "air_spell_recipe",
+	category = "crafting",
+	enabled = true,
+	
+	ingredients =
+	{
+		{
+			type="item",
+			name="wood",
+			amount=1
+		}
+	},
+	results=
+	{
+		{
+			type="item",
+			name="air_spell",
+			amount=1
+		}
+	}	
+}
+
+hazelnut_ward_recipe = 
+{
+	type = "recipe",
+	name = "hazelnut-ward_recipe",
+	category = "crafting",
+	enabled = true,
+	
+	ingredients =
+	{
+		{
+			type="item",
+			name="wood",
+			amount=1
+		}
+	},
+	results=
+	{
+		{
+			type="item",
+			name="hazelnut-wand",
+			amount=1
+		}
+	}	
+}
+
 liquid_mana_recipe = 
 {
 	type = "recipe",
@@ -156,5 +206,7 @@ data:extend({
 	magitory_subgroup,
 	liquid_mana_recipe,
 	alien_science_pack_mk1_recipe,
-	alien_science_pack_mk2_recipe
+	alien_science_pack_mk2_recipe,
+	hazelnut_ward_recipe,
+	air_spell_recipe
 })
