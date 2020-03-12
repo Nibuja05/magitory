@@ -38,7 +38,7 @@ water_spell =
 {
 	type = "ammo",
 	name = "water_spell",
-	icon = "__magitory__/graphics/icons/water_spell.png",
+	icon = "__magitory__/graphics/icons/water-spell.png",
 	icon_size = 32,
 	order = "ad",
 	stack_size = 50,
@@ -74,7 +74,7 @@ void_spell =
 {
 	type = "ammo",
 	name = "void_spell",
-	icon = "__magitory__/graphics/icons/void_spell.png",
+	icon = "__magitory__/graphics/icons/void-spell.png",
 	icon_size = 32,
 	order = "ad",
 	stack_size = 50,

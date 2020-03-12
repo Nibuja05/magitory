@@ -2,7 +2,7 @@ data:extend({
     {
         type = "gun",
         name = "hazelnut-wand"	,
-        icon = "__magitory__/graphics/icons/hazelnut_ward.png",
+        icon = "__magitory__/graphics/icons/hazelnut-ward.png",
 		icon_size = 32,
 		--flags = {"goes-to-quickbar"},
         stack_size = 5,
