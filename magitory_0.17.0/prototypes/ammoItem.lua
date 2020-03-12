@@ -1,24 +1,8 @@
-testentity =
-{
-	type = "particle-source",
-	name = "test-entity",
-	icon = "__magitory__/graphics/icons/liquid-mana.png",
-	icon_size = 32,
-	
-	height = 10,
-	horizontal_speed = 0,
-	height = 10,
-	height = 10,
-	height = 10,
-	
-	
-}
-
 wind_spell = 
 {
 	type = "ammo",
 	name = "wind_spell",
-	icon = "__magitory__/graphics/icons/liquid-mana.png",
+	icon = "__magitory__/graphics/icons/wind-spell.png",
 	icon_size = 32,
 	order = "ad",
 	stack_size = 50,
@@ -54,7 +38,7 @@ water_spell =
 {
 	type = "ammo",
 	name = "water_spell",
-	icon = "__magitory__/graphics/icons/liquid-mana.png",
+	icon = "__magitory__/graphics/icons/water_spell.png",
 	icon_size = 32,
 	order = "ad",
 	stack_size = 50,
@@ -90,7 +74,7 @@ void_spell =
 {
 	type = "ammo",
 	name = "void_spell",
-	icon = "__magitory__/graphics/icons/liquid-mana.png",
+	icon = "__magitory__/graphics/icons/void_spell.png",
 	icon_size = 32,
 	order = "ad",
 	stack_size = 50,
@@ -126,7 +110,7 @@ stone_spell =
 {
 	type = "ammo",
 	name = "stone_spell",
-	icon = "__magitory__/graphics/icons/liquid-mana.png",
+	icon = "__magitory__/graphics/icons/stone-spell.png",
 	icon_size = 32,
 	order = "ad",
 	stack_size = 50,
@@ -162,7 +146,7 @@ fire_spell =
 {
 	type = "ammo",
 	name = "fire_spell",
-	icon = "__magitory__/graphics/icons/liquid-mana.png",
+	icon = "__magitory__/graphics/icons/fire-spell.png",
 	icon_size = 32,
 	order = "ad",
 	stack_size = 50,
@@ -198,7 +182,7 @@ nature_spell =
 {
 	type = "ammo",
 	name = "nature_spell",
-	icon = "__magitory__/graphics/icons/liquid-mana.png",
+	icon = "__magitory__/graphics/icons/nature-spell.png",
 	icon_size = 32,
 	order = "ad",
 	stack_size = 50,
@@ -234,7 +218,7 @@ ice_spell =
 {
 	type = "ammo",
 	name = "ice_spell",
-	icon = "__magitory__/graphics/icons/liquid-mana.png",
+	icon = "__magitory__/graphics/icons/ice-spell.png",
 	icon_size = 32,
 	order = "ad",
 	stack_size = 50,
