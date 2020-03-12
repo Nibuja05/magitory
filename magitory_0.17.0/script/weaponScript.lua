@@ -131,15 +131,20 @@ function dash_on_tick()
 end
 
 function air_on_entity_damaged(event)
+
 	if(event.damage_type.name == "magic_wind")
 	then
 		if(event.entity == event.cause)
 		then
+
 			surface = event.entity.surface
 			sourceX = event.cause.position.x
 			sourceY = event.cause.position.y
 			units = {}
 			units = surface.find_entities_filtered{position = {sourceX, sourceY}, radius = 10, type = "unit"}
+			count = 0
+			for _ in pairs(units) do count = count + 1 end
+			game.print(count)
 			for int,unit in pairs(units) do 
 				targetX = unit.position.x
 				targetY = unit.position.y
@@ -162,6 +167,13 @@ function air_on_entity_damaged(event)
 	end
 end
 
+function electric_on_entity_damaged(event)
+	if(event.damage_type.name == "magic_electric")
+	then
+	
+	end
+end
+
 script.on_event(defines.events.on_tick, 
 function(event)
   	dash_on_tick()
@@ -177,5 +189,6 @@ end
 script.on_event(defines.events.on_entity_damaged,
 	function(event)
 		air_on_entity_damaged(event)
+		electric_on_entity_damaged(event)
 	end
 )

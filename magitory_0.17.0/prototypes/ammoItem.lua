@@ -250,6 +250,41 @@ ice_spell =
 	}
 }
 
+electric_spell = 
+{
+	type = "ammo",
+	name = "electric_spell",
+	icon = "__magitory__/graphics/icons/electric-spell.png",
+	icon_size = 32,
+	order = "ad",
+	stack_size = 50,
+	ammo_type = 
+	{
+		category = "spell",
+		action = 
+		{
+			type = "area",
+			radius = 15,
+			collision_mode = "distance-from-center",
+			action_delivery =
+			{
+				type = "instant",
+				target_effects = 
+				{
+					type = "damage",
+					damage = 
+					{
+						amount = 0,
+						type = "magic_electric",
+					}	
+				}
+			}
+		}
+		--range = 1000,
+		--cooldown = 1,
+		
+	}
+}
 
 
 
@@ -261,4 +296,5 @@ data:extend({
 	fire_spell,
 	nature_spell,
 	ice_spell,
+	electric_spell
 })

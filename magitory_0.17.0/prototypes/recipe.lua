@@ -196,6 +196,31 @@ ice_spell_recipe =
 	}	
 }
 
+electric_spell_recipe = 
+{
+	type = "recipe",
+	name = "electric_spell_recipe",
+	category = "crafting",
+	enabled = true,
+	
+	ingredients =
+	{
+		{
+			type="item",
+			name="wood",
+			amount=1
+		}
+	},
+	results=
+	{
+		{
+			type="item",
+			name="electric_spell",
+			amount=1
+		}
+	}	
+}
+
 hazelnut_ward_recipe = 
 {
 	type = "recipe",
@@ -362,5 +387,5 @@ data:extend({
 	fire_spell_recipe,
 	nature_spell_recipe,
 	ice_spell_recipe,
-	
+	electric_spell_recipe
 })

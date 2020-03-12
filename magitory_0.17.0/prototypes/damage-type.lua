@@ -33,6 +33,11 @@ ice = {
 	name = "magic_ice",
 }
 
+electric = {
+	type = "damage-type",
+	name = "magic_electric",
+}
+
 data:extend({
 	wind,
 	water,
@@ -41,4 +46,5 @@ data:extend({
 	fire,
 	nature,
 	ice,
+	electric,
 })
