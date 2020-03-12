@@ -33,7 +33,7 @@ air_spell =
 		action = 
 		{
 			type = "area",
-			radius = 10,
+			radius = 0,
 			collision_mode = "distance-from-center",
 			action_delivery =
 			{
@@ -41,12 +41,11 @@ air_spell =
 				target_effects = 
 				{
 					type = "damage",
-					apply_damage_to_trees = false,
 					damage = 
 					{
 						amount = 0,
 						type = "air",
-					}					
+					}	
 				}
 			}
 		}
