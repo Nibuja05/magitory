@@ -14,11 +14,6 @@ testentity =
 	
 }
 
-damage_type = {
-	type = "damage-type",
-	name = "air",
-}
-
 air_spell = 
 {
 	type = "ammo",
@@ -33,7 +28,7 @@ air_spell =
 		action = 
 		{
 			type = "area",
-			radius = 0,
+			radius = 15,
 			collision_mode = "distance-from-center",
 			action_delivery =
 			{
@@ -44,7 +39,7 @@ air_spell =
 					damage = 
 					{
 						amount = 0,
-						type = "air",
+						type = "magic_wind",
 					}	
 				}
 			}
