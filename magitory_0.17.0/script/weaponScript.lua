@@ -1,3 +1,6 @@
+
+
+
 function clean_up(entity)
 	if not directionlist then directionlist = {} end
 	if not distancelist then distancelist = {} end
