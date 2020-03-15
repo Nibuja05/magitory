@@ -41,8 +41,5 @@ end
 -- REQUIREMENTS
 
 require("script.weaponScript")
-
---===================================================
-
-magitory:ReloadEvents()
+require("script.developmentScript")
 

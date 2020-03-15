@@ -1,5 +1,4 @@
-
-
+--old version should not be used again
 
 function clean_up(entity)
 	if not directionlist then directionlist = {} end
