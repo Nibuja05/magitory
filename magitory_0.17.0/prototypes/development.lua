@@ -1,15 +1,4 @@
-group = {
-    type = "item-group",
-	icon = "__magitory__/graphics/icons/SciencePackMk1.png",
-	icon_size = 32,
-	name = "testgroup"
-}
 
-subgroup = {
-	group = "testgroup",
-    type = "item-subgroup",
-	name = "magic_ring"
-}
 
 
 testiteam = {
@@ -104,7 +93,5 @@ data:extend({
 	testrecipe,
 	testring,
 	testring2,
-	testring3,
-	subgroup,
-	group,
+	testring3
 })

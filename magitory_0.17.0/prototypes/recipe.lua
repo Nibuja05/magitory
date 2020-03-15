@@ -1,25 +1,4 @@
-magitory_category = 
-{
-	type = "recipe-category",
-	name = "magitory-refine"
-}
 
-magitory_group = 
-{
-	type = "item-group",
-	name = "magitory-base",
-	icon = "__magitory__/graphics/icons/liquid-mana.png",
-	icon_size = 32,
-	order = "ad"
-	-- order_in_recipe=""
-}
-
-magitory_subgroup = 
-{
-	type = "item-subgroup",
-	name = "magitory-fluids",
-	group = "magitory-base",
-}
 
 wind_spell_recipe = 
 {
@@ -374,8 +353,6 @@ alien_science_pack_mk2_recipe =
 
 data:extend({
 	magitory_category,
-	magitory_group,
-	magitory_subgroup,
 	liquid_mana_recipe,
 	alien_science_pack_mk1_recipe,
 	alien_science_pack_mk2_recipe,

@@ -25,50 +25,5 @@ data:extend({
         subgroup = "storage",
         stack_size = 200
     }
-	})
---    {
---        type = "item",
---        name = "mst-transport-belt-mk2",
---        icon = "__MultiSortTransportBelts__/graphics/belt/multi_sort_transport_belt.png",
---        flags = {"goes-to-quickbar"},
---        subgroup = "storage",
---        place_result = "mst-transport-belt-mk2",
---        stack_size = 50
---    },
---    {
---        type = "item",
---        name = "mst-transport-belt-mk3",
---        icon = "__MultiSortTransportBelts__/graphics/belt/multi_sort_transport_belt.png",
---        flags = {"goes-to-quickbar"},
---        subgroup = "storage",
---        place_result = "mst-transport-belt-mk3",
---        stack_size = 50
---    },
---    {
---        type = "item",
---        name = "mst-transport-belt-mk2",
---        icon = "__MultiSortTransportBelts__/graphics/belt/multi_sort_transport_belt.png",
---        flags = {"goes-to-quickbar"},
---        subgroup = "storage",
---        place_result = "mst-transport-belt-mk2",
---        stack_size = 50
---    },
---    {
---        type = "item",
---        name = "mst-transport-belt-x",
---        icon = "__MultiSortTransportBelts__/graphics/belt/multi_sort_transport_belt.png",
---        flags = {"goes-to-quickbar"},
---        subgroup = "storage",
---        place_result = "mst-transport-belt-x",
---        stack_size = 50
---    },
---    {
---     type = "item",
---     name = "mst-transport-controller",
---     icon = "__MultiSortTransportBelts__/graphics/controller/multi_sort_transport_controller.png",
---     flags = {"goes-to-quickbar"},
---     subgroup = "storage",
---     place_result = "mst-transport-controller",
---     stack_size = 30, default_request_amount = 5,
---   },  
--- })
+	}
+)

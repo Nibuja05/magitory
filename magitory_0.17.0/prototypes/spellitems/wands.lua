@@ -1,6 +1,6 @@
 data:extend({
     {
-        type = "gun",
+        type = "item",
         name = "hazelnut-wand"	,
         icon = "__magitory__/graphics/icons/hazelnut-ward.png",
 		icon_size = 32,
