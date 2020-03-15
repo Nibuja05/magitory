@@ -1,3 +1,17 @@
+group = {
+    type = "item-group",
+	icon = "__magitory__/graphics/icons/SciencePackMk1.png",
+	icon_size = 32,
+	name = "testgroup"
+}
+
+subgroup = {
+	group = "testgroup",
+    type = "item-subgroup",
+	name = "magic_ring"
+}
+
+
 testiteam = {
     type = "item-with-inventory",
     name = "test_gloves",
@@ -5,6 +19,7 @@ testiteam = {
 	icon_size = 32,
     stack_size = 1,
 	inventory_size = 3,
+	item_subgroup_filters = {"magic_ring"},
 }
 
 testrecipe = 
@@ -14,6 +29,9 @@ testrecipe =
 	category = "crafting",
 	enabled = true,
 	
+	icon = "__magitory__/graphics/icons/SciencePackMk1.png",
+	icon_size = 32,
+	subgroup = "magic_ring",
 	ingredients =
 	{
 		{
@@ -26,7 +44,7 @@ testrecipe =
 	{
 		{
 			type="item",
-			name="test-item-with-inventory",
+			name="test_gloves",
 			amount=1
 		},
 		{
@@ -56,6 +74,7 @@ testring = {
 	--flags = {"goes-to-quickbar"},
     --subgroup = "science-pack",
     stack_size = 1,
+	subgroup = "magic_ring",
 }
 
 testring2 = {
@@ -66,6 +85,7 @@ testring2 = {
 	--flags = {"goes-to-quickbar"},
     --subgroup = "science-pack",
     stack_size = 1,
+	subgroup = "magic_ring",
 }
 
 testring3 = {
@@ -76,6 +96,7 @@ testring3 = {
 	--flags = {"goes-to-quickbar"},
     --subgroup = "science-pack",
     stack_size = 1,
+	subgroup = "magic_ring",
 }
 
 data:extend({
@@ -84,4 +105,6 @@ data:extend({
 	testring,
 	testring2,
 	testring3,
+	subgroup,
+	group,
 })
