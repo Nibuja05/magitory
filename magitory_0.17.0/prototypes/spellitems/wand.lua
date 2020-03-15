@@ -1,16 +1,30 @@
 data:extend({
     {
-        type = "item",
+        type = "capsule",
         name = "hazelnut-wand"	,
+		
         icon = "__magitory__/graphics/icons/hazelnut-ward.png",
 		icon_size = 32,
-		--flags = {"goes-to-quickbar"},
-        stack_size = 5,
-		attack_parameters ={
-			type = "projectile",
-			range = 10,
-			cooldown = 30,
-			ammo_category = "spell",
+		
+        stack_size = 1,
+		
+		capsule_action = {
+			type = "throw",
+			uses_stack = false,
+			attack_parameters ={
+				type = "projectile",
+				range = 10,
+				cooldown = 30,
+				ammo_type = {
+					category = "spell"
+				}
+		}
+		
+		--attack_parameters ={
+			--type = "projectile",
+			--range = 10,
+			--cooldown = 30,
+			--ammo_category = "spell",
 			--movement_slow_down_factor = 0.5, --copied by bobswarefare rifle
 			--projectile_creation_distance = 0.6,
 			--damage_modifier = 7,--7.5

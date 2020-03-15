@@ -2,16 +2,17 @@
 
 
 
-require("prototypes.buffitems.gloves")
-require("prototypes.buffitems.recipes")
-require("prototypes.buffitems.rings")
+require("prototypes.buffitems.glove")
+require("prototypes.buffitems.recipe")
+require("prototypes.buffitems.ring")
 
-require("prototypes.spellitems.recipes")
-require("prototypes.spellitems.spellbooks")
-require("prototypes.spellitems.spells")
-require("prototypes.spellitems.wands")
+require("prototypes.spellitems.recipe")
+require("prototypes.spellitems.spellbook")
+require("prototypes.spellitems.spell")
+require("prototypes.spellitems.wand")
 
 require("prototypes.alien")
+require("prototypes.ammo-category")
 require("prototypes.damage-type")
 require("prototypes.development")
 require("prototypes.entity")
