@@ -176,7 +176,7 @@ function electric_on_entity_damaged(event)
 	end
 end
 
-magitory:DefineEvent("on_tick", function(event) dash_on_tick() end)
+magitory:DefineEvent("on_tick", dash_on_tick)
 magitory:DefineEvent("on_entity_died", function(event) clean_up(event.entity) end)
 magitory:DefineEvent("on_entity_damaged", air_on_entity_damaged)
 magitory:DefineEvent("on_entity_damaged", electric_on_entity_damaged)

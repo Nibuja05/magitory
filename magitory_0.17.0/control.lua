@@ -44,4 +44,7 @@ end
 
 require("script.weaponScript")
 require("script.developmentScript")
+require("script.spellScript")
 
+
+magitory:ReloadEvents()
