@@ -17,8 +17,22 @@ ward = {
 	name = "magic_ward"
 }
 
+spell = {
+	group = "magitory_base",
+    type = "item-subgroup",
+	name = "magic_spell"
+}
+
+spellbook = {
+	group = "magitory_base",
+    type = "item-subgroup",
+	name = "magic_spell_book"
+}
+
 data:extend({
 	fluids,
 	testgroup,
 	ward,
+	spell,
+	spellbook,
 })

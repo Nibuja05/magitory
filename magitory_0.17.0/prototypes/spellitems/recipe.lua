@@ -223,11 +223,39 @@ hazelnut_ward_recipe =
 			name="hazelnut-wand",
 			amount=1
 		}
-	}	
+	}	,
+	--subgroup = "magic_spell",
+}
+
+spellbook_recipe = 
+{
+	type = "recipe",
+	name = "spellbook_recipe",
+	category = "crafting",
+	enabled = true,
+	
+	ingredients =
+	{
+		{
+			type="item",
+			name="wood",
+			amount=1
+		}
+	},
+	results=
+	{
+		{
+			type="item",
+			name="spellbook",
+			amount=1
+		}
+	}	,
+	--subgroup = "magic_spell",
 }
 
 data:extend({
 	hazelnut_ward_recipe,
+	spellbook_recipe,
 	
 	wind_spell_recipe,
 	water_spell_recipe,
