@@ -13,25 +13,6 @@ if not motion_controller then
 	motion_controller.callbacks = {}
 end
 
-function motion_controller:start_event(event)
-	local player = game.players[event.player_index]
-	local playerLoc = Vector(player.position)
-	local cursorLoc = Vector(event.position)
-
-	hits = player.surface.find_entities_filtered({position=cursorLoc, radius=3, type="unit"})
-
-	function collision(entity, position)
-		entity.damage(25, player.force)
-	end
-
-	for _,hit in pairs(hits) do
-		unitLoc = Vector(hit.position)
-		local direction = (unitLoc - cursorLoc):normalized()
-		local distance = #(unitLoc - cursorLoc) * 2
-		self:add_motion(hit, direction, 20, nil, nil, collision)
-	end
-end
-
 function motion_controller:add_motion(entity, direction, distance, stun, force, callback)
 	if not force then force = DEFAULT_FORCE_CONST end
 	velocity = direction * (distance - (distance / force))
@@ -106,5 +87,4 @@ function motion_controller:motion(event)
 	-- self.velocities = {}
 end
 
-magitory:DefineEvent("on_player_used_capsule", function(event) motion_controller:start_event(event) end)
 magitory:DefineEvent("on_tick", function(event) motion_controller:motion(event) end)
