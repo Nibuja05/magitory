@@ -1,19 +1,24 @@
 --data.lua
 
--- data:extend(
--- {
--- 	{
--- 	  type = "custom-input",
--- 	  name = "mst-close-window",
--- 	  key_sequence = "E",
--- 	  consuming = "none"
--- 	},
--- })
 
-require("prototypes.item")
-require("prototypes.recipe")
-require("prototypes.entity")
-require("prototypes.ammoCategory")
-require("prototypes.gun")
-require("prototypes.ammoItem")
+
+require("prototypes.buffitems.glove")
+require("prototypes.buffitems.recipe")
+require("prototypes.buffitems.ring")
+
+require("prototypes.spellitems.recipe")
+require("prototypes.spellitems.spellbook")
+require("prototypes.spellitems.spell")
+require("prototypes.spellitems.wand")
+
+require("prototypes.alien")
+require("prototypes.ammo-category")
 require("prototypes.damage-type")
+require("prototypes.development")
+require("prototypes.entity")
+require("prototypes.item")
+require("prototypes.item-group")
+require("prototypes.item-subgroup")
+require("prototypes.recipe")
+require("prototypes.recipe-category")
+require("prototypes.technology")

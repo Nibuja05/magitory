@@ -1,6 +1,6 @@
 wind_spell = 
 {
-	type = "ammo",
+	type = "item",
 	name = "wind_spell",
 	icon = "__magitory__/graphics/icons/wind-spell.png",
 	icon_size = 32,
@@ -36,7 +36,7 @@ wind_spell =
 
 water_spell = 
 {
-	type = "ammo",
+	type = "item",
 	name = "water_spell",
 	icon = "__magitory__/graphics/icons/water-spell.png",
 	icon_size = 32,
@@ -72,7 +72,7 @@ water_spell =
 
 void_spell = 
 {
-	type = "ammo",
+	type = "item",
 	name = "void_spell",
 	icon = "__magitory__/graphics/icons/void-spell.png",
 	icon_size = 32,
@@ -108,7 +108,7 @@ void_spell =
 
 stone_spell = 
 {
-	type = "ammo",
+	type = "item",
 	name = "stone_spell",
 	icon = "__magitory__/graphics/icons/stone-spell.png",
 	icon_size = 32,
@@ -144,7 +144,7 @@ stone_spell =
 
 fire_spell = 
 {
-	type = "ammo",
+	type = "item",
 	name = "fire_spell",
 	icon = "__magitory__/graphics/icons/fire-spell.png",
 	icon_size = 32,
@@ -180,7 +180,7 @@ fire_spell =
 
 nature_spell = 
 {
-	type = "ammo",
+	type = "item",
 	name = "nature_spell",
 	icon = "__magitory__/graphics/icons/nature-spell.png",
 	icon_size = 32,
@@ -216,7 +216,7 @@ nature_spell =
 
 ice_spell = 
 {
-	type = "ammo",
+	type = "item",
 	name = "ice_spell",
 	icon = "__magitory__/graphics/icons/ice-spell.png",
 	icon_size = 32,
@@ -252,7 +252,7 @@ ice_spell =
 
 electric_spell = 
 {
-	type = "ammo",
+	type = "item",
 	name = "electric_spell",
 	icon = "__magitory__/graphics/icons/electric-spell.png",
 	icon_size = 32,
