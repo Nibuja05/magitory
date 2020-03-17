@@ -37,7 +37,18 @@ function magitory:ReloadEvents()
 	end	
 end
 
-
+function print(...)
+	local args = {...}
+	if #args == 1 then
+		game.print(args[1])
+		return
+	end
+	local pStr = ""
+	for _,s in pairs(args) do
+		s = s..tostring(s).."  "
+	end
+	game.print(pStr)
+end
 
 --===================================================
 -- REQUIREMENTS
