@@ -11,7 +11,14 @@ testgroup = {
 	name = "magic_ring"
 }
 
+ward = {
+	group = "magitory_base",
+    type = "item-subgroup",
+	name = "magic_ward"
+}
+
 data:extend({
 	fluids,
-	testgroup
+	testgroup,
+	ward,
 })

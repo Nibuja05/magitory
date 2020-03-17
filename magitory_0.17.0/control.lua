@@ -27,7 +27,7 @@ end
 
 function magitory:ReloadEvents()
 	if self.eventList then
-		for eventName.events in pairs(self.eventList) do
+		for eventName,events in pairs(self.eventList) do
 			script.on_event(defines.events[eventName], function(event)
 				for _,func in pairs(magitory.eventList[eventName]) do
 					func(event)
@@ -37,9 +37,14 @@ function magitory:ReloadEvents()
 	end	
 end
 
+
+
 --===================================================
 -- REQUIREMENTS
 
 require("script.weaponScript")
 require("script.developmentScript")
+require("script.spellScript")
 
+
+magitory:ReloadEvents()

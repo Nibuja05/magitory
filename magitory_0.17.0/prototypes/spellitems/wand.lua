@@ -8,13 +8,15 @@ data:extend({
 		
         stack_size = 1,
 		
+		subgroup = "magic_ward",
+		
 		capsule_action = {
 			type = "throw",
 			uses_stack = false,
 			attack_parameters ={
 				type = "projectile",
-				range = 10,
-				cooldown = 30,
+				range = 1000,
+				cooldown = 10,
 				ammo_type = {
 					category = "spell"
 				}
