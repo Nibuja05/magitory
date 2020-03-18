@@ -33,7 +33,7 @@ function clean_damage(entity, amount, source)
 		return false
 	end
 	health = entity.health
-	game.print (health)
+	--game.print (health)
 	if not (entity.health) then 
 		return false
 	end
@@ -139,8 +139,11 @@ end
 function air_on_player_used_capsule(event)
 
 	if(event.item.name == "hazelnut-wand")
+
+	
 	then
-		game.print("test")
+		print(spellGui:get_selected())
+		--game.print("test")
 		player = game.players[event.player_index]
 		surface = player.surface
 		sourceX = player.position.x
