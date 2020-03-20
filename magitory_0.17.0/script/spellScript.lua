@@ -32,13 +32,13 @@ function clean_damage(entity, amount, source)
 	if not (entity.destructible) then
 		return false
 	end
-	health = entity.health
+	local health = entity.health
 	--game.print (health)
 	if not (entity.health) then 
 		return false
 	end
 	
-	damagetaken = entity.damage(amount, source.force)
+	local damagetaken = entity.damage(amount, source.force)
 	if(health > damagetaken)
 	then
 		-- life
@@ -88,7 +88,7 @@ function colition(unit,newX,newY)
 		unit.teleport({x = newX , y = newY})
 		return false 
 	else
-		hits = unit.surface.find_entities_filtered({area = {{newX-1 ,newY-1},{newX+1 ,newY+1}}})
+		local hits = unit.surface.find_entities_filtered({area = {{newX-1 ,newY-1},{newX+1 ,newY+1}}})
 		
 		for int, hit in pairs(hits) do
 			if not (hit == unit) then
@@ -116,10 +116,10 @@ function dash_on_tick(event)
 	
 	for unit, direction in pairs(directionlist) do
 		if unit.valid then
-			distancelist[unit] = distancelist[unit]*0.6
-			distance = distancelist[unit]
-			newX = unit.position.x + (math.sin(direction) *distance) 
-			newY = unit.position.y + (math.cos(direction) *distance) 
+			local distancelist[unit] = distancelist[unit]*0.6
+			local distance = distancelist[unit]
+			local newX = unit.position.x + (math.sin(direction) *distance) 
+			local newY = unit.position.y + (math.cos(direction) *distance) 
 			
 			colition(unit,newX,newY)
 			
@@ -138,20 +138,20 @@ end
 
 function air_on_spell(event) --on_player_used_capsule 
 	--game.print("test")
-	player = game.players[event.player_index]
-	surface = player.surface
-	sourceX = player.position.x
-	sourceY = player.position.y
-	units = {}
-	units = surface.find_entities_filtered{position = {sourceX, sourceY}, radius = 10, type = "unit"}
+	local player = game.players[event.player_index]
+	local surface = player.surface
+	local sourceX = player.position.x
+	local sourceY = player.position.y
+	local units = {}
+	local units = surface.find_entities_filtered{position = {sourceX, sourceY}, radius = 10, type = "unit"}
 	--count = 0
 	--for _ in pairs(units) do count = count + 1 end
 	--game.print(count)
 	for int,unit in pairs(units) do 
-		targetX = unit.position.x
-		targetY = unit.position.y
-		distance = math.max(10-(((sourceX-targetX)^2 + (sourceY-targetY)^2)^0.5),0)
-		direction = math.atan2((targetX-sourceX), (targetY-sourceY) )		
+		local targetX = unit.position.x
+		local targetY = unit.position.y
+		local distance = math.max(10-(((sourceX-targetX)^2 + (sourceY-targetY)^2)^0.5),0)
+		local direction = math.atan2((targetX-sourceX), (targetY-sourceY) )		
 		dash_init(unit,distance/2,direction)
 	end
 end

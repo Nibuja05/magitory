@@ -22,12 +22,12 @@ function spellGui:get_selected(player)
 end
 
 function spellGui:update(player)
-		inventory = player.get_main_inventory()
+		local inventory = player.get_main_inventory()
 		if(inventory.get_item_count("spellbook")==0) then
 			player.gui.screen.spellGuiFrame.visible = false
 		else
 			player.gui.screen.spellGuiFrame.visible = true
-			spellbook_inventory = inventory.find_item_stack("spellbook").get_inventory(defines.inventory.item_main)
+			local spellbook_inventory = inventory.find_item_stack("spellbook").get_inventory(defines.inventory.item_main)
 			player.gui.screen.spellGuiFrame.clear()
 			for int,numb in pairs(NUMBERSTOTEN) do
 				if spellbook_inventory[int].valid_for_read then
