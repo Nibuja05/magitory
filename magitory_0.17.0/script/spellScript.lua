@@ -136,44 +136,47 @@ function dash_on_tick(event)
 	end
 end
 
-function air_on_player_used_capsule(event)
-
-	if(event.item.name == "hazelnut-wand")
-
-	
-	then
-		print(spellGui:get_selected())
-		--game.print("test")
-		player = game.players[event.player_index]
-		surface = player.surface
-		sourceX = player.position.x
-		sourceY = player.position.y
-		units = {}
-		units = surface.find_entities_filtered{position = {sourceX, sourceY}, radius = 10, type = "unit"}
-		count = 0
-		for _ in pairs(units) do count = count + 1 end
-		--game.print(count)
-		for int,unit in pairs(units) do 
-			targetX = unit.position.x
-			targetY = unit.position.y
-			distance = math.max(10-(((sourceX-targetX)^2 + (sourceY-targetY)^2)^0.5),0)
-			direction = math.atan2((targetX-sourceX), (targetY-sourceY) )		
-			dash_init(unit,distance/2,direction)
-		end
-		-- old code over ammoitem.lua insteat of find_entities_filtered
-		--if(event.entity.type == "unit")
-		--then
-		--	sourceX = event.cause.position.x
-		--	sourceY = event.cause.position.y
-		--	targetX = event.entity.position.x
-		--	targetY = event.entity.position.y
-		--	distance = math.max(10-(((sourceX-targetX)^2 + (sourceY-targetY)^2)^0.5),0)
-		--	direction = math.atan2((targetX-sourceX), (targetY-sourceY) )		
-		--	dash_init(event.entity,distance,direction)
-		--end
+function air_on_spell(event) --on_player_used_capsule 
+	--game.print("test")
+	player = game.players[event.player_index]
+	surface = player.surface
+	sourceX = player.position.x
+	sourceY = player.position.y
+	units = {}
+	units = surface.find_entities_filtered{position = {sourceX, sourceY}, radius = 10, type = "unit"}
+	--count = 0
+	--for _ in pairs(units) do count = count + 1 end
+	--game.print(count)
+	for int,unit in pairs(units) do 
+		targetX = unit.position.x
+		targetY = unit.position.y
+		distance = math.max(10-(((sourceX-targetX)^2 + (sourceY-targetY)^2)^0.5),0)
+		direction = math.atan2((targetX-sourceX), (targetY-sourceY) )		
+		dash_init(unit,distance/2,direction)
 	end
 end
 
+function on_player_used_ward(event)
+	local player = game.players[event.player_index]
+	local consume_item = true
+	if(event.item.subgroup.name == "magic_ward") then
+		if spellGui:get_selected(player) == "no_spellbook" then
+			player.print("no spellbook")
+			consume_item = false
+		elseif spellGui:get_selected(player) == "no_spell" then
+			player.print("no_spell")
+			consume_item = false
+		elseif spellGui:get_selected(player) == "wind_spell" then
+			air_on_spell(event)
+		else 
+			player.print(spellGui:get_selected(player) .." is not supported yet")
+		end
+		if consume_item then
+			spellGui:consumeSpell(player)
+		end
+	end
+	spellGui:update(player)
+end
 
 function test(event)
 --	game.print(event.position)
@@ -182,4 +185,4 @@ end
 
 magitory:DefineEvent("on_tick", function(event) dash_on_tick() end)
 magitory:DefineEvent("on_entity_died", function(event) clean_up(event.entity) end)
-magitory:DefineEvent("on_player_used_capsule", air_on_player_used_capsule)
+magitory:DefineEvent("on_player_used_capsule", on_player_used_ward)

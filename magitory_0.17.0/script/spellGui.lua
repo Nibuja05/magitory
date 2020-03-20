@@ -3,13 +3,21 @@ NUMBERSTOTEN = {"1","2","3","4","5","6","7","8","9","10"}
 
 if not spellGui then 
 	spellGui = {}
-	spellGui.isInit = false
+	--spellGui.isInit = false
 	spellGui.selected = 1
 end
 
-function spellGui:get_selected()
-	if inventory.get_item_count("spellbook")==0 then return "no_spellbook" end
-	if not spellbook_inventory[spellGui.selected].valid_for_read then return "no_spell" end
+function spellGui:consumeSpell(player)
+	if player.get_main_inventory().get_item_count("spellbook")==0 then return "no_spellbook" end
+	if not player.get_main_inventory().find_item_stack("spellbook").get_inventory(defines.inventory.item_main)[spellGui.selected].valid_for_read then return "no_spell" end
+	
+	player.get_main_inventory().find_item_stack("spellbook").get_inventory(defines.inventory.item_main)[spellGui.selected].count = player.get_main_inventory().find_item_stack("spellbook").get_inventory(defines.inventory.item_main)[spellGui.selected].count -1
+	
+end
+
+function spellGui:get_selected(player)
+	if player.get_main_inventory().get_item_count("spellbook")==0 then return "no_spellbook" end
+	if not player.get_main_inventory().find_item_stack("spellbook").get_inventory(defines.inventory.item_main)[spellGui.selected].valid_for_read then return "no_spell" end
 	return player.get_main_inventory().find_item_stack("spellbook").get_inventory(defines.inventory.item_main)[spellGui.selected].name
 end
 
@@ -52,15 +60,10 @@ function spellGui:add_sprite_button(player,item,int)
 	end
 end
 
-function spellGui:init()
-	spellGui.isInit = true
-	
-	if not game.players[1].gui.screen.spellGuiFrame then game.players[1].gui.screen.add{type="frame", name="spellGuiFrame"} end
-	game.players[1].gui.screen.spellGuiFrame.location = {0,1000}
-
-	for _,player in pairs(game.players)do
-		self:update(player)
-	end
+function spellGui:init(player)
+	if not player.gui.screen.spellGuiFrame then player.gui.screen.add{type="frame", name="spellGuiFrame"} end
+	player.gui.screen.spellGuiFrame.location = {0,1000}
+	self:update(player)
 end
 
 
@@ -73,17 +76,17 @@ function spellGui:on_gui_click(event)
 	end
 end
 
-function spellGui:on_tick()
-	if not spellGui.isInit then
-		spellGui:init()
-	end
-
-end
-
 function spellGui:test()
 	--game.print("test")
 end 
 
 magitory:DefineEvent("on_gui_closed", function(event) spellGui:update(game.players[event.player_index]) end)
-magitory:DefineEvent("on_tick", function(event) spellGui:on_tick() end)
+magitory:DefineEvent("on_gui_opened", function(event) spellGui:update(game.players[event.player_index]) end)
+magitory:DefineEvent("on_picked_up_item", function(event) spellGui:update(game.players[event.player_index]) end)
+magitory:DefineEvent("on_player_crafted_item", function(event) spellGui:update(game.players[event.player_index]) end)
+magitory:DefineEvent("on_player_dropped_item", function(event) spellGui:update(game.players[event.player_index]) end)
+magitory:DefineEvent("on_player_main_inventory_changed", function(event) spellGui:update(game.players[event.player_index]) end)
+magitory:DefineEvent("on_player_trash_inventory_changed", function(event) spellGui:update(game.players[event.player_index]) end)
+--magitory:DefineEvent("on_tick", function(event) spellGui:on_tick() end)
 magitory:DefineEvent("on_gui_click",function(event) spellGui:on_gui_click(event) end)
+magitory:DefineEvent("on_player_joined_game",function(event) spellGui:init(game.players[event.player_index]) end)
