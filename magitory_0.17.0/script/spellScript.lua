@@ -29,6 +29,9 @@ end
 
 
 function clean_damage(entity, amount, source)
+	if not entity.valid then
+		return false
+	end
 	if not (entity.destructible) then
 		return false
 	end
@@ -116,7 +119,7 @@ function dash_on_tick(event)
 	
 	for unit, direction in pairs(directionlist) do
 		if unit.valid then
-			local distancelist[unit] = distancelist[unit]*0.6
+			distancelist[unit] = distancelist[unit]*0.6
 			local distance = distancelist[unit]
 			local newX = unit.position.x + (math.sin(direction) *distance) 
 			local newY = unit.position.y + (math.cos(direction) *distance) 
@@ -156,6 +159,12 @@ function air_on_spell(event) --on_player_used_capsule
 	end
 end
 
+function stone_on_spell(event)
+	local player = game.players[event.player_index]
+	local surface = player.surface
+	surface.create_entity{name="pylon", position=event.position}
+end
+
 function on_player_used_ward(event)
 	local player = game.players[event.player_index]
 	local consume_item = true
@@ -168,7 +177,9 @@ function on_player_used_ward(event)
 			consume_item = false
 		elseif spellGui:get_selected(player) == "wind_spell" then
 			air_on_spell(event)
-		else 
+		elseif spellGui:get_selected(player) == "stone_spell" then
+			stone_on_spell(event)
+		else
 			player.print(spellGui:get_selected(player) .." is not supported yet")
 		end
 		if consume_item then

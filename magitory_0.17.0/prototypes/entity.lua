@@ -104,9 +104,32 @@ unrefined_mana_autoplace =
 	category = "resource"
 }
 
+pylon = {
+	name = "pylon",
+	type = "simple-entity",
+	icon = "__magitory__/graphics/icons/unrefined-mana.png",
+	icon_size = 32,
+	count_as_rock_for_filtered_deconstruction = true,
+	picture = {type = "SpriteVariations",filename = "__magitory__/graphics/entity/pylon.png",	size = {32,46},},
+	tile_width = 1,
+	tile_height = 1,
+	minable = {
+		type = "MinableProperties",
+		mining_time = 1,
+		result = "stone",
+		count = 5,
+		mining_particle = "stone-particle",
+		},
+	collision_box = {{-0.4, -0.4}, {0.4, 0.4}},
+	selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+}
+
+
+
 data:extend({
 	unrefined_mana,
 	unrefined_mana_resource,
 	unrefined_mana_autoplace,
 	liquid_mana,
+	pylon,
 })
