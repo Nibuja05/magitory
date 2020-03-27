@@ -115,8 +115,7 @@ end
 
 
 function dash_on_tick(event)
-	if not directionlist then directionlist = {} end
-	
+	if not directionlist then directionlist = {} end	
 	for unit, direction in pairs(directionlist) do
 		if unit.valid then
 			distancelist[unit] = distancelist[unit]*0.6
@@ -165,6 +164,10 @@ function stone_on_spell(event)
 	surface.create_entity{name="pylon", position=event.position}
 end
 
+function void_on_spell(event)
+	dungeon:tp(game.players[event.player_index])
+end
+
 function on_player_used_ward(event)
 	local player = game.players[event.player_index]
 	local consume_item = true
@@ -179,6 +182,8 @@ function on_player_used_ward(event)
 			air_on_spell(event)
 		elseif spellGui:get_selected(player) == "stone_spell" then
 			stone_on_spell(event)
+		elseif spellGui:get_selected(player) == "void_spell" then
+			void_on_spell(event)
 		else
 			player.print(spellGui:get_selected(player) .." is not supported yet")
 		end

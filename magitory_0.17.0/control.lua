@@ -38,16 +38,16 @@ function magitory:ReloadEvents()
 end
 
 function print(...)
-	local args = {...}
-	if #args == 1 then
-		game.print(args[1])
-		return
-	end
-	local pStr = ""
-	for _,s in pairs(args) do
-		s = s..tostring(s).."  "
-	end
-	game.print(pStr)
+    local args = {...}
+    if #args == 1 then
+        game.print(args[1])
+        return
+    end
+    local pStr = ""
+    for _,s in pairs(args) do
+        pStr = pStr..tostring(s).."  "
+    end
+    game.print(pStr)
 end
 
 --===================================================
@@ -57,6 +57,8 @@ require("script.weaponScript")
 require("script.developmentScript")
 require("script.spellScript")
 require("script.spellGui")
+
+require("script.dungeonScripts.dungeonMain")
 
 
 magitory:ReloadEvents()
