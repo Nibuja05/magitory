@@ -1,4 +1,3 @@
-
 Vector = {}
 Vector.__index = Vector
 Vector_mt = {__call = function(_, ...) return Vector.new(...) end }
@@ -40,6 +39,7 @@ function Vector:__pow(e)
 end
 
 function Vector:__len()
+  print(self.x ^ 2, self.y ^ 2)
 	return math.sqrt(self.x ^ 2 + self.y ^ 2)
 end
 
@@ -48,16 +48,20 @@ function Vector:__eq(v)
 end
 
 function Vector:normalized()
-	return self / #self
+	return self / self:__len()
 end
 
 function Vector:rotate(v,angle)
 	local theta = math.rad(angle)
-    local xp = v.x*math.cos(theta)-v.y*math.sin(theta)
-    local yp = v.x*math.sin(theta)+v.y*math.cos(theta)
-    return Vector(xp,yp):normalized()
+  local xp = v.x*math.cos(theta)-v.y*math.sin(theta)
+  local yp = v.x*math.sin(theta)+v.y*math.cos(theta)
+  return Vector(xp,yp):normalized()
 end
 
 function Vector:stretched(len)
-	return self:normalized() * #self * len
+	return self:normalized() * self:__len() * len
+end
+
+function Vector:int()
+  return Vector(math.floor(self.x), math.floor(self.y))
 end

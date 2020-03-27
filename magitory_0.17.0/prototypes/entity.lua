@@ -178,6 +178,9 @@ dungeon_gate_horizontal = {
 	selection_box = {{-1.5, -0.5}, {1.5, 0.5}},
 }
 
+dungeon_gate = table.deepcopy(data.raw.gate.gate)
+dungeon_gate.name = "dungeon-gate"
+dungeon_gate.order = "a"
 
 data:extend({
 	unrefined_mana,
@@ -187,4 +190,5 @@ data:extend({
 	pylon,
 	dungeon_gate_vertical,
 	dungeon_gate_horizontal,
+	dungeon_gate,
 })
