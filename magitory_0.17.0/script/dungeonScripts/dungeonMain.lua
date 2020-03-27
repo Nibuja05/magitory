@@ -1,38 +1,78 @@
+
+Room = {}
+Room.__index = Room
+Room_mt = {__call = function(_, ...) return Room.new(...) end }
+setmetatable(Room, Room_mt)
+
+function Room.new(position,size,exits)
+	return setmetatable({position=position, size=size, exits=exits, locked=false}, Room)
+end
+
+function Room:__tostring()
+	return "Room at "..self.position
+end
+
+function Room:create()
+	local surface = game.surfaces["dungeon"]
+	local tiles = {}
+	for i=self.position.x-self.size,self.position.x+self.size do
+		for j=self.position.y-self.size,self.position.y+self.size do
+			table.insert(tiles, {name="dungeon_floor", position={i, j}})
+		end
+	end
+	surface.set_tiles(tiles)
+	for i=self.position.x-self.size,self.position.x+self.size do
+		if i == -1 then 
+		elseif i == 0 then
+				surface.create_entity{name="dungeon_gate_horizontal", position=	{i,self.size}}
+				surface.create_entity{name="dungeon_gate_horizontal", position=	{i,-self.size}}
+				surface.create_entity{name="dungeon_gate_vertical", position=	{self.size,i}}
+				surface.create_entity{name="dungeon_gate_vertical", position=	{-self.size,i}}
+		elseif i == 1 then
+		else
+			surface.create_entity{name="stone-wall", position=	{i,self.size}}
+			surface.create_entity{name="stone-wall", position=	{i,-self.size}}
+			surface.create_entity{name="stone-wall", position=	{self.size,i}}
+			surface.create_entity{name="stone-wall", position=	{-self.size,i}}
+		end
+	end
+end
+
 if not dungeon then 
 	dungeon = {}
 	count =  0
 	starting_room = nil
 end
 
-
-
 -- room {hight, with, N1,N2,N3, E1,E2,E3, S1, S2, S3, W1, W2, W3}
 
 function createWalls(var)
 	local surface = game.surfaces["dungeon"]
 	if var.is_starting_room then
-		local tiles = {}
-		for i = -13, 13,1 do
-			for j = -13, 13,1 do
-				table.insert(tiles, {name="dungeon_floor", position={i, j}})
-			end
-		end
-		surface.set_tiles(tiles)
-		for i = -13, 13,1 do
-			if tostring(i) == "-1" then 
-			elseif tostring(i) == "0" then
-					surface.create_entity{name="dungeon_gate_horizontal", position=	{i,13}}
-					surface.create_entity{name="dungeon_gate_horizontal", position=	{i,-13}}
-					surface.create_entity{name="dungeon_gate_vertical", position=	{13,i}}
-					surface.create_entity{name="dungeon_gate_vertical", position=	{-13,i}}
-			elseif tostring(i) == "1" then
-			else
-				surface.create_entity{name="stone-wall", position=	{i,13}}
-				surface.create_entity{name="stone-wall", position=	{i,-13}}
-				surface.create_entity{name="stone-wall", position=	{13,i}}
-				surface.create_entity{name="stone-wall", position=	{-13,i}}
-			end
-		end
+		local startRoom = Room(Vector(0,0),13,{"N", "S", "W", "E"})
+		startRoom:create()
+		-- local tiles = {}
+		-- for i = -13, 13,1 do
+		-- 	for j = -13, 13,1 do
+		-- 		table.insert(tiles, {name="dungeon_floor", position={i, j}})
+		-- 	end
+		-- end
+		-- surface.set_tiles(tiles)
+		-- for i = -13, 13,1 do
+		-- 	if tostring(i) == "-1" then 
+		-- 	elseif tostring(i) == "0" then
+		-- 			surface.create_entity{name="dungeon_gate_horizontal", position=	{i,13}}
+		-- 			surface.create_entity{name="dungeon_gate_horizontal", position=	{i,-13}}
+		-- 			surface.create_entity{name="dungeon_gate_vertical", position=	{13,i}}
+		-- 			surface.create_entity{name="dungeon_gate_vertical", position=	{-13,i}}
+		-- 	elseif tostring(i) == "1" then
+		-- 	else
+		-- 		surface.create_entity{name="stone-wall", position=	{i,13}}
+		-- 		surface.create_entity{name="stone-wall", position=	{i,-13}}
+		-- 		surface.create_entity{name="stone-wall", position=	{13,i}}
+		-- 		surface.create_entity{name="stone-wall", position=	{-13,i}}
+		-- 	end
+		-- end
 	end
 end
 
