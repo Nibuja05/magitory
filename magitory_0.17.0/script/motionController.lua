@@ -71,17 +71,19 @@ function motion_controller:motion(event)
 		end
 	end
 	for entity, velocity in pairs(self.velocities) do
-		local entLoc = Vector(entity.position)
-		local newLoc = entLoc + velocity
-		if entity.surface.can_place_entity({name=entity.name, position=newLoc, force=entity.force}) 
-			and entity.valid then
-			entity.teleport(newLoc)
-			self.velocities[entity] = velocity:stretched(1 / self.forces[entity])
-		else
-			if self.callbacks[entity] then
-				self.callbacks[entity](entity, entLoc)
+		if entity.valid then
+			local entLoc = Vector(entity.position)
+			local newLoc = entLoc + velocity
+			if entity.surface.can_place_entity({name=entity.name, position=newLoc, force=entity.force}) 
+				and entity.valid then
+				entity.teleport(newLoc)
+				self.velocities[entity] = velocity:stretched(1 / self.forces[entity])
+			else
+				if self.callbacks[entity] then
+					self.callbacks[entity](entity, entLoc)
+				end
+				self:stop_motion(entity)
 			end
-			self:stop_motion(entity)
 		end
 	end
 	-- self.velocities = {}
