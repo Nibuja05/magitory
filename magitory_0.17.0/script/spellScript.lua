@@ -1,33 +1,4 @@
 
-function dash_init(unit, distance, direction)
-	if not directionlist then directionlist = {} end
-	if not distancelist then distancelist = {} end
-
-	directionlist[unit] = direction 
-	distancelist[unit] = distance
-	unit.active = false
-end
-
-
-function stun_init(unit)
-	if not stunlist then stunlist = {} end
-	stunlist[unit] = 60*3
-	unit.active = false
-end
-
-
-
-function dash_on_tick()
-	if not stunlist then stunlist = {} end
-	for unit, int in pairs(stunlist) do
-		stunlist[unit] = stunlist[unit] -1
-		if(stunlist[unit] == 0)then 
-			unit.active=true 
-			stunlist[unit] = nil
-		end
-	end
-end
-
 function collition(unit, newLoc)
 	local hits = unit.surface.find_entities_filtered({area = {newLoc - 1, newLoc + 1}})
 	
@@ -53,11 +24,6 @@ function air_on_spell(event) --on_player_used_capsule
 	local sourceLoc = Vector(player.position)
 	local units = {}
 	local units = surface.find_entities_filtered{position = sourceLoc, radius = 10, type = "unit"}
-
-	local testTable = {}
-	testTable.position = player.position
-	testTable.otherTable = {name="hi", loc = {x=1,y=2}}
-	print(testTable)
 
 	for _,unit in pairs(units) do
 		local targetLoc = Vector(unit.position)

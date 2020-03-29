@@ -15,6 +15,7 @@ function get_bounding_box(field)
 end	
 
 function Room.new(starting_field,fields)
+	
 	Room:createStructure(starting_field,fields)
 end
 
@@ -69,20 +70,16 @@ function Room:createStructure(starting_field,relativ_fields)
 			table.insert(bulit_vert,wall)
 		end
 	end
-	print(#bulit_vert + #bulit_hor)
+	--print(#bulit_vert + #bulit_hor)
 	
 end
 
 function Room:build_walls(vert_or_hor,location)
-	print(vert_or_hor) --- printet ein table und kein string
 	local surface = game.surfaces["dungeon"]
-	--treate hor and vert in its own way
 	if vert_or_hor == "vert" then
-				
 		--check if there are no tiles at both sides
 		if(surface.get_tile(location.x-1, location.y + (FIELD_SCALE/2)).name == "dungeon_void")or(surface.get_tile(location.x+1, location.y + (FIELD_SCALE/2)).name == "dungeon_void")
 		then
-
 			for i = location.y,location.y + FIELD_SCALE do
 				self:build_wall(surface, {location.x,i})
 			end
