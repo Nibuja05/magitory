@@ -94,8 +94,10 @@ end
 
 --===================================================
 -- REQUIREMENTS
-require('script/vectors')
-require('script/motionController')
+require('script.util')
+require('script.vectors')
+require('script.motionController')
+require('script.modifiers')
 
 require("script.weaponScript")
 require("script.developmentScript")
