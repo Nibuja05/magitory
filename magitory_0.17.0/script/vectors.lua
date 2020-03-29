@@ -15,11 +15,19 @@ function Vector:__tostring()
 end
 
 function Vector:__add(v)
-	return Vector(self.x + v.x, self.y + v.y)
+	if type(v) == "table" then
+		return Vector(self.x + v.x, self.y + v.y)
+	elseif type(v) == "number" then
+		return Vector(self.x + v, self.y + v)
+	end
 end
 
 function Vector:__sub(v)
-	return Vector(self.x - v.x, self.y - v.y)
+	if type(v) == "table" then
+		return Vector(self.x - v.x, self.y - v.y)
+	elseif type(v) == "number" then
+		return Vector(self.x - v, self.y - v)
+	end
 end
 
 function Vector:__mul(b)

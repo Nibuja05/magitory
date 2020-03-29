@@ -1,59 +1,3 @@
-function clean_up(entity)
-	if not directionlist then directionlist = {} end
-	if not distancelist then distancelist = {} end
-	if not stunlist then stunlist = {} end
-	if not hits then hits = {} end
-	
-	for int, hit in pairs(hits) do
-		if (hit == entity) then
-			hits[int] = nil
-		end
-	end
-	
-	for entity_, value in pairs(directionlist) do
-		if (entity_ == entity) then
-			directionlist[entity_] = nil
-		end
-	end
-	for entity_, value in pairs(distancelist) do
-		if (entity_ == entity) then
-			distancelist[entity_] = nil
-		end
-	end
-	for entity_, value in pairs(stunlist) do
-		if (entity_ == entity) then
-			stunlist[entity_] = nil
-		end
-	end	
-end
-
-
-function clean_damage(entity, amount, source)
-	if not entity.valid then
-		return false
-	end
-	if not (entity.destructible) then
-		return false
-	end
-	local health = entity.health
-	--game.print (health)
-	if not (entity.health) then 
-		return false
-	end
-	
-	local damagetaken = entity.damage(amount, source.force)
-	if(health > damagetaken)
-	then
-		-- life
-		return false
-	else
-		--kill
-		clean_up(entity)
-		return true
-	end
-	
-end
-
 
 function dash_init(unit, distance, direction)
 	if not directionlist then directionlist = {} end
@@ -84,57 +28,21 @@ function dash_on_tick()
 	end
 end
 
-
-function colition(unit,newX,newY)
-	if(unit.surface.can_place_entity({name= unit.name, position={x=newX ,y = newY}, direction=unit.direction, force=unit.force}))
-	then 
-		unit.teleport({x = newX , y = newY})
-		return false 
-	else
-		local hits = unit.surface.find_entities_filtered({area = {{newX-1 ,newY-1},{newX+1 ,newY+1}}})
-		
-		for int, hit in pairs(hits) do
-			if not (hit == unit) then
-				--game.print(hit.type)
-				stun_init(hit)
-				killed = clean_damage(hit,5,unit)
-			end
-		end
-		
-		stun_init(unit)
-		--game.print(hits[1])
-		--game.print(hits[1].force)
-		
-		for int, hit in pairs(hits) do
-			clean_damage(unit, 5, hit)
-			break
+function collition(unit, newLoc)
+	local hits = unit.surface.find_entities_filtered({area = {newLoc - 1, newLoc + 1}})
+	
+	for int, hit in pairs(hits) do
+		if not (hit == unit) then
+			-- stun_init(hit)
+			create_modifier(nil, hit, "modifier_knockback_stun", {duration=3})
+			killed = clean_damage(hit,5,unit)
 		end
 	end
-end
-
-
-
-function dash_on_tick(event)
-	if not directionlist then directionlist = {} end	
-	for unit, direction in pairs(directionlist) do
-		if unit.valid then
-			distancelist[unit] = distancelist[unit]*0.6
-			local distance = distancelist[unit]
-			local newX = unit.position.x + (math.sin(direction) *distance) 
-			local newY = unit.position.y + (math.cos(direction) *distance) 
-			
-			colition(unit,newX,newY)
-			
-			
-			if (distance<0.00001)then
-				distancelist[unit] = nil
-				directionlist[unit] = nil
-				if not stunlist then stunlist = {} end
-				if not stunlist[unit] then
-					unit.active = true
-				end
-			end		
-		end
+	-- stun_init(unit)
+	create_modifier(nil, unit, "modifier_knockback_stun", {duration=3})
+	for int, hit in pairs(hits) do
+		clean_damage(unit, 5, hit)
+		break
 	end
 end
 
@@ -142,19 +50,21 @@ function air_on_spell(event) --on_player_used_capsule
 	--game.print("test")
 	local player = game.players[event.player_index]
 	local surface = player.surface
-	local sourceX = player.position.x
-	local sourceY = player.position.y
+	local sourceLoc = Vector(player.position)
 	local units = {}
-	local units = surface.find_entities_filtered{position = {sourceX, sourceY}, radius = 10, type = "unit"}
-	--count = 0
-	--for _ in pairs(units) do count = count + 1 end
-	--game.print(count)
-	for int,unit in pairs(units) do 
-		local targetX = unit.position.x
-		local targetY = unit.position.y
-		local distance = math.max(10-(((sourceX-targetX)^2 + (sourceY-targetY)^2)^0.5),0)
-		local direction = math.atan2((targetX-sourceX), (targetY-sourceY) )		
-		dash_init(unit,distance/2,direction)
+	local units = surface.find_entities_filtered{position = sourceLoc, radius = 10, type = "unit"}
+
+	local testTable = {}
+	testTable.position = player.position
+	testTable.otherTable = {name="hi", loc = {x=1,y=2}}
+	print(testTable)
+
+	for _,unit in pairs(units) do
+		local targetLoc = Vector(unit.position)
+		local distance = 10 - #(targetLoc - sourceLoc)
+		local direction = (targetLoc - sourceLoc):normalized()
+
+		motion_controller:add_motion(unit, direction, distance, true, nil, collition)
 	end
 end
 
@@ -162,6 +72,11 @@ function stone_on_spell(event)
 	local player = game.players[event.player_index]
 	local surface = player.surface
 	surface.create_entity{name="pylon", position=event.position}
+
+	local units = surface.find_entities_filtered{position = event.position, radius = 4, type = "unit"}
+	for _,unit in pairs(units) do
+		create_modifier(player.character, unit, "modifier_burn_test", {duration=3, damage=5})
+	end
 end
 
 function void_on_spell(event)
@@ -202,3 +117,25 @@ end
 magitory:DefineEvent("on_tick", function(event) dash_on_tick() end)
 magitory:DefineEvent("on_entity_died", function(event) clean_up(event.entity) end)
 magitory:DefineEvent("on_player_used_capsule", on_player_used_ward)
+
+modifier_burn_test = {}
+
+function modifier_burn_test:on_created(event)
+	self.damage = event.damage
+	self:start_interval_think(1)
+	clean_damage(self.parent, self.damage, self.caster)
+end
+
+function modifier_burn_test:on_interval_think()
+	clean_damage(self.parent, self.damage, self.caster)
+end
+
+modifier_knockback_stun = {}
+
+function modifier_knockback_stun:on_created(event)
+	self.parent.active = false
+end
+
+function modifier_knockback_stun:on_destroy()
+	self.parent.active = true
+end
