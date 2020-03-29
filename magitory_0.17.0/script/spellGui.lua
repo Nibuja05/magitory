@@ -22,8 +22,10 @@ function spellGui:get_selected(player)
 end
 
 function spellGui:update(player)
+
 		local inventory = player.get_main_inventory()
 		if(inventory.get_item_count("spellbook")==0) then
+			if not player.gui.screen.spellGuiFrame then return end
 			player.gui.screen.spellGuiFrame.visible = false
 		else
 			player.gui.screen.spellGuiFrame.visible = true

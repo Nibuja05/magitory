@@ -23,5 +23,7 @@ require("prototypes.recipe")
 require("prototypes.recipe-category")
 require("prototypes.sprite")
 require("prototypes.technology")
-require("prototypes.technology")
+require("prototypes.tile")
 require("prototypes.animation")
+
+require("prototypes.custom-input")

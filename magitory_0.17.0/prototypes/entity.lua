@@ -124,7 +124,63 @@ pylon = {
 	selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
 }
 
+dungeon_gate_vertical = {
+	name = "dungeon_gate_vertical",
+	type = "simple-entity",
+	icon = "__magitory__/graphics/icons/unrefined-mana.png",--
+	icon_size = 32,--
+	count_as_rock_for_filtered_deconstruction = false,
+	max_health = 0.1,
+	pictures = 
+	{
+		type = "SpriteVariations",
+		filename = "__magitory__/graphics/entity/dungeon_gate_vertical.png",
+		size = {49,101},
+	},
+	tile_width = 1,
+	tile_height = 3,
+	
+	minable = {
+		type = "MinableProperties",
+		mining_time = 1,
+		result = "stone",
+		count = 5,
+		mining_particle = "stone-particle",
+		},
+	collision_box = {{-0.5, -1.5}, {0.5, 1.5}},
+	selection_box = {{-0.5, -1.5}, {0.5, 1.5}},
+}
 
+dungeon_gate_horizontal = {
+	name = "dungeon_gate_horizontal",
+	type = "simple-entity",
+	icon = "__magitory__/graphics/icons/unrefined-mana.png",--
+	icon_size = 32,--
+	count_as_rock_for_filtered_deconstruction = false,
+	max_health = 0.1,
+	picture = 
+	{
+		--type = "SpriteVariations",
+		filename = "__magitory__/graphics/entity/dungeon_gate_horizontal.png",
+		size = {101,49},
+	},
+	tile_width = 3,
+	tile_height = 1,
+	
+	minable = {
+		type = "MinableProperties",
+		mining_time = 1,
+		result = "stone",
+		count = 5,
+		mining_particle = "stone-particle",
+		},
+	collision_box = {{-1.5, -0.5}, {1.5, 0.5}},
+	selection_box = {{-1.5, -0.5}, {1.5, 0.5}},
+}
+
+dungeon_gate = table.deepcopy(data.raw.gate.gate)
+dungeon_gate.name = "dungeon-gate"
+dungeon_gate.order = "a"
 
 data:extend({
 	unrefined_mana,
@@ -132,4 +188,7 @@ data:extend({
 	unrefined_mana_autoplace,
 	liquid_mana,
 	pylon,
+	dungeon_gate_vertical,
+	dungeon_gate_horizontal,
+	dungeon_gate,
 })

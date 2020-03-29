@@ -103,6 +103,8 @@ require("script.weaponScript")
 require("script.developmentScript")
 require("script.spellScript")
 require("script.spellGui")
+require("script.dungeonScripts.room")
 
+require("script.dungeonScripts.dungeonMain")
 
 magitory:ReloadEvents()

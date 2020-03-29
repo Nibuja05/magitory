@@ -28,7 +28,6 @@ function dash_on_tick()
 	end
 end
 
-
 function collition(unit, newLoc)
 	local hits = unit.surface.find_entities_filtered({area = {newLoc - 1, newLoc + 1}})
 	
@@ -80,6 +79,10 @@ function stone_on_spell(event)
 	end
 end
 
+function void_on_spell(event)
+	dungeon:tp(game.players[event.player_index])
+end
+
 function on_player_used_ward(event)
 	local player = game.players[event.player_index]
 	local consume_item = true
@@ -94,6 +97,8 @@ function on_player_used_ward(event)
 			air_on_spell(event)
 		elseif spellGui:get_selected(player) == "stone_spell" then
 			stone_on_spell(event)
+		elseif spellGui:get_selected(player) == "void_spell" then
+			void_on_spell(event)
 		else
 			player.print(spellGui:get_selected(player) .." is not supported yet")
 		end
