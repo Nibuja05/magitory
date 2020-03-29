@@ -80,7 +80,7 @@ function test(event)
 end
 
 
-magitory:DefineEvent("on_tick", function(event) dash_on_tick() end)
+
 magitory:DefineEvent("on_entity_died", function(event) clean_up(event.entity) end)
 magitory:DefineEvent("on_player_used_capsule", on_player_used_ward)
 

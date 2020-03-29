@@ -47,7 +47,6 @@ function Vector:__pow(e)
 end
 
 function Vector:__len()
-  print(self.x ^ 2, self.y ^ 2)
 	return math.sqrt(self.x ^ 2 + self.y ^ 2)
 end
 
