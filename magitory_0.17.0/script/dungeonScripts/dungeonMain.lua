@@ -1,24 +1,40 @@
 
 DOOR_CHECK_INTERVAL_CONST = 18000
-
-Room = {}
-Room.__index = Room
-Room_mt = {__call = function(_, ...) return Room.new(...) end }
-setmetatable(Room, Room_mt)
-
-function Room.new(position,size,exits)
-	return setmetatable({position=position, size=size, exits=exits, locked=false, doors={}}, Room)
+if not global.dungeon then
+	global.dungeon = {}
+	global.dungeon.rooms = {}
+	dungeon = {}
+--	count =  0
 end
 
-function Room.from_table(tab)
+
+--[[function Room:create_walls(vert_or_hor,location)
+	if vert_or_hor == "vert" then
+		for i = location.y,location.y + FIELD_SCALE do
+			self:create_wall(surface, {location.x,i})
+		end
+	elseif vert_or_hor == "hor" then
+		for i = location.x,location.x + FIELD_SCALE do
+			self:create_wall(surface, {i,location.y})
+		end
+	end
+end]]
+
+
+
+--function Room.new(position,size,exits)
+--	return setmetatable({position=position, size=size, exits=exits, locked=false, doors={}}, Room)
+--end
+
+--[[function Room.from_table(tab)
 	return setmetatable(tab, Room)
-end
+end]]
 
-function Room:__tostring()
+--[[function Room:__tostring()
 	return "Room at "..self.position
-end
+end]]
 
-function Room:create()
+--[[function Room:create()
 	local surface = game.surfaces["dungeon"]
 	local tiles = {}
 	for i=self.position.x-self.size,self.position.x+self.size do
@@ -66,9 +82,9 @@ function Room:create()
 			self:create_wall(surface, {-self.size,i})
 		end
 	end
-end
+end]]
 
-function Room:create_door(startPos, endPos, isBlocked, turn)
+--[[function Room:create_door(startPos, endPos, isBlocked, turn)
 	local surface = game.surfaces["dungeon"]
 	if not isBlocked then isBlocked = false end
 	for i=startPos.x,endPos.x do
@@ -87,17 +103,18 @@ function Room:create_door(startPos, endPos, isBlocked, turn)
 			end
 		end
 	end
-end
+end]]
 
-function Room:create_wall(surface, position)
+--[[function Room:create_wall(surface, position)
+	local surface = game.surfaces["dungeon"]
 	local wall = surface.create_entity{name="stone-wall", position=position}
 	if wall then
 		wall.destructible = false
 		wall.minable = false
 	end
-end
+end]]
 
-function Room:check_doors()
+--[[function Room:check_doors()
 	for _,door in pairs(self.doors) do
 		if door.open then
 			if door.entity and door.entity.valid then
@@ -107,9 +124,9 @@ function Room:check_doors()
 			end
 		end
 	end
-end
+end]]
 
-function Room:unlock_doors(ent)
+--[[function Room:unlock_doors(ent)
 	if not ent then
 		for _,door in pairs(self.doors) do
 			door.open = true
@@ -122,57 +139,47 @@ function Room:unlock_doors(ent)
 		end
 	end
 	self:check_doors()
-end
+end]]
 
-function Room:has_door(ent)
+--[[function Room:has_door(ent)
 	for _,door in pairs(self.doors) do
 		if door.entity == ent then
 			return true
 		end
 	end
 	return false
-end
+end]]
 
-if not dungeon then
-	dungeon = {}
-	count =  0
-	starting_room = nil
-end
 
-function dungeon:createWalls(var)
+--[[function dungeon:createWalls(var)
 	local surface = game.surfaces["dungeon"]
 	if var.is_starting_room then
-		local startRoom = Room(Vector(0,0),10,{"S", "W", "E", "N"})
-		startRoom:create()
+		--local startRoom = Room(Vector(0,0),10,{"S", "W", "E", "N"})
+		local three_times_three = {Vector(0,0),Vector(0,1),Vector(0,2),Vector(1,0),Vector(1,1),Vector(1,2),Vector(2,0),Vector(2,1),Vector(2,2)}
+		local startRoom = Room(Vector(-1,-1),three_times_three)
+		--startRoom:create()
 		dungeon.startRoom = startRoom
 		table.insert(global.dungeon.rooms, startRoom)
 	end
-end
+end]]
 
-function create_starting_room()
+function dungeon:create_starting_room()
 	
 	local surface = game.surfaces["dungeon"]
-	--print (surface.is_chunk_generated{0,0})
-	if surface.is_chunk_generated{0,0} then starting_room = {hight = 3, with = 3} end
-	dungeon:createWalls({is_starting_room = true})
-
+	--local startRoom = Room(Vector(0,0),10,{"S", "W", "E", "N"})
+	local three_times_three = {Vector(0,0),Vector(0,1),Vector(0,2),Vector(1,0),Vector(1,1),Vector(1,2),Vector(2,0),Vector(2,1),Vector(2,2)}
+	local startRoom = Room(Vector(-1,-1),three_times_three)
+	--print(startRoom)
+	--startRoom:create()
+	global.dungeon.startRoom = startRoom
+	--table.insert(global.dungeon.rooms, startRoom)
 end
 
 function dungeon:on_tick(event)
-	if not global.dungeon then 
-		global.dungeon = {}
-		game.create_surface("dungeon",{width = 0, height = 0})
-		game.surfaces["dungeon"].request_to_generate_chunks({0, 0}, 3)
-		game.surfaces["dungeon"].always_day = true --look for always night
+	
+		
 
-		if not global.dungeon.rooms then global.dungeon.rooms = {} end
 
-			--if remote.interfaces["RSO"] then -- RSO compatibility
-			--	pcall(remote.call, "RSO", "ignoreSurface", surface_name)
-			--end
-		--
-	end
-	if not starting_room then create_starting_room() end
 	-- if event.tick % 1200 == 0 and event.tick ~= 0 then
 	-- 	for _,room in pairs(global.dungeon.rooms) do
 	-- 		room:unlock_doors()
@@ -181,8 +188,10 @@ function dungeon:on_tick(event)
 end
 
 function dungeon:on_chunk_generated(event)
+
 	--Only handle chunks on our dungeon surface.
 	if event.surface.name ~= "dungeon" then return end
+	--print(event.area)
 	--Clear our the new chunk from everything. We just want empty space, and there is no way to have factorio generate an empty map.
 	event.surface.destroy_decoratives({area= event.area})
 	for i, entity in ipairs(event.surface.find_entities(event.area)) do
@@ -192,7 +201,6 @@ function dungeon:on_chunk_generated(event)
 	end
 	
 	
-	--Fill everything with deep space, except for the center area. Which we will fill with a bit of space platform so we have a starting area.
 	local tiles = {}
 	for x=event.area.left_top.x, event.area.right_bottom.x do
 		for y=event.area.left_top.y, event.area.right_bottom.y do
@@ -200,17 +208,31 @@ function dungeon:on_chunk_generated(event)
 		end
 	end
 	event.surface.set_tiles(tiles)
-	count = count + 1
+	--count = count + 1
 	
 end
 
 function dungeon:tp(player)
+
+	game.create_surface("dungeon",{width = 0, height = 0})	
 	player.teleport({0,0},game.surfaces["dungeon"])
+	
+
+	--game.surfaces["dungeon"].request_to_generate_chunks({0, 0}, 3)
+	--game.surfaces["dungeon"].always_day = true --look for always night
+	print("test init")
+		--if remote.interfaces["RSO"] then -- RSO compatibility
+		--	pcall(remote.call, "RSO", "ignoreSurface", surface_name)
+		--end
+		--	
+	if not global.dungeon.startRoom then
+		self:create_starting_room() 
+	end
 end
 
-function dungeon:refresh_rooms(event)
+function dungeon:refresh_rooms(event) 
 	if event.tick % DOOR_CHECK_INTERVAL_CONST == 0 then
-		print("Refresh Doors")
+		--print("Refresh Doors")
 		for _,room in pairs(global.dungeon.rooms) do
 			room:check_doors()
 		end
@@ -244,7 +266,7 @@ end
 
 script.on_load(function() dungeon:reload_rooms() end)
 
-magitory:DefineEvent("on_tick", function(event) dungeon:on_tick(event) end)
+--magitory:DefineEvent("on_tick", function(event) dungeon:on_tick(event) end)
 magitory:DefineEvent("on_chunk_generated",function(event) dungeon:on_chunk_generated(event)end)
 magitory:DefineEvent("on_tick", function(event) dungeon:refresh_rooms(event) end)
 
@@ -253,6 +275,8 @@ magitory:DefineEvent("on_player_joined_game", function(event) dungeon:reload_roo
 
 script.on_event("open-gate-key", function(event) dungeon:open_gate(event) end)
 
+--utils its here until there is a util.lua
+
 function FindValueInTable(tab, value)
 	for _,val in pairs(tab) do
 		if val == value then
@@ -260,4 +284,30 @@ function FindValueInTable(tab, value)
 		end
 	end
 	return false
+end
+
+function RemoveFromTable(tab, element)
+    local newTable = {}
+    local count = 0
+    for _,elem in pairs(tab) do
+        if not elem == element then
+            table.insert(newTable, elem)
+        else
+            count = count + 1
+        end
+    end
+    return newTable, count
+end
+
+function RemoveVectorFromTable(tab, element)
+	local newTable = {}
+    --local count = 0
+    for _,elem in pairs(tab) do
+        if not (elem.x == element.x and elem.y == element.y) then
+            table.insert(newTable, elem)
+        --else
+            --count = count + 1
+        end
+    end
+    return newTable--, count
 end
