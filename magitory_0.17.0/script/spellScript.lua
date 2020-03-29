@@ -1,59 +1,3 @@
-function clean_up(entity)
-	if not directionlist then directionlist = {} end
-	if not distancelist then distancelist = {} end
-	if not stunlist then stunlist = {} end
-	if not hits then hits = {} end
-	
-	for int, hit in pairs(hits) do
-		if (hit == entity) then
-			hits[int] = nil
-		end
-	end
-	
-	for entity_, value in pairs(directionlist) do
-		if (entity_ == entity) then
-			directionlist[entity_] = nil
-		end
-	end
-	for entity_, value in pairs(distancelist) do
-		if (entity_ == entity) then
-			distancelist[entity_] = nil
-		end
-	end
-	for entity_, value in pairs(stunlist) do
-		if (entity_ == entity) then
-			stunlist[entity_] = nil
-		end
-	end	
-end
-
-
-function clean_damage(entity, amount, source)
-	if not entity.valid then
-		return false
-	end
-	if not (entity.destructible) then
-		return false
-	end
-	local health = entity.health
-	--game.print (health)
-	if not (entity.health) then 
-		return false
-	end
-	
-	local damagetaken = entity.damage(amount, source.force)
-	if(health > damagetaken)
-	then
-		-- life
-		return false
-	else
-		--kill
-		clean_up(entity)
-		return true
-	end
-	
-end
-
 
 function dash_init(unit, distance, direction)
 	if not directionlist then directionlist = {} end
@@ -90,11 +34,13 @@ function collition(unit, newLoc)
 	
 	for int, hit in pairs(hits) do
 		if not (hit == unit) then
-			stun_init(hit)
+			-- stun_init(hit)
+			create_modifier(nil, hit, "modifier_knockback_stun", {duration=3})
 			killed = clean_damage(hit,5,unit)
 		end
 	end
-	stun_init(unit)
+	-- stun_init(unit)
+	create_modifier(nil, unit, "modifier_knockback_stun", {duration=3})
 	for int, hit in pairs(hits) do
 		clean_damage(unit, 5, hit)
 		break
@@ -127,6 +73,11 @@ function stone_on_spell(event)
 	local player = game.players[event.player_index]
 	local surface = player.surface
 	surface.create_entity{name="pylon", position=event.position}
+
+	local units = surface.find_entities_filtered{position = event.position, radius = 4, type = "unit"}
+	for _,unit in pairs(units) do
+		create_modifier(player.character, unit, "modifier_burn_test", {duration=3, damage=5})
+	end
 end
 
 function on_player_used_ward(event)
@@ -161,3 +112,25 @@ end
 magitory:DefineEvent("on_tick", function(event) dash_on_tick() end)
 magitory:DefineEvent("on_entity_died", function(event) clean_up(event.entity) end)
 magitory:DefineEvent("on_player_used_capsule", on_player_used_ward)
+
+modifier_burn_test = {}
+
+function modifier_burn_test:on_created(event)
+	self.damage = event.damage
+	self:start_interval_think(1)
+	clean_damage(self.parent, self.damage, self.caster)
+end
+
+function modifier_burn_test:on_interval_think()
+	clean_damage(self.parent, self.damage, self.caster)
+end
+
+modifier_knockback_stun = {}
+
+function modifier_knockback_stun:on_created(event)
+	self.parent.active = false
+end
+
+function modifier_knockback_stun:on_destroy()
+	self.parent.active = true
+end
