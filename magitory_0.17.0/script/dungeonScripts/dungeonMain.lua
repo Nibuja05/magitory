@@ -2,12 +2,31 @@
 DOOR_CHECK_INTERVAL_CONST = 18000
 if not global.dungeon then
 	global.dungeon = {}
-	global.dungeon.rooms = {}
+	global.dungeon.rooms = {} -- is this really needed
+	global.dungeon.areas = {} -- needed for room finding
+	global.dungeon.doors = {} --{entity_1::entity,entity_2::entity,entity_3::entity,open::boolean}
 	dungeon = {}
 --	count =  0
 end
 
+function dungeon.get_closed_doors()
+	returnList={}
+	for int,door in pairs(global.dungeon.doors) do
+		if not door.open
+		then
+			table.insert(returnList,door)
+		end
+	end	
+	return returnList
+end
 
+function dungeon.get_min_door_count()
+	return 3
+end 
+
+function dungeon.get_max_door_count()
+	return 5
+end 
 --[[function Room:create_walls(vert_or_hor,location)
 	if vert_or_hor == "vert" then
 		for i = location.y,location.y + FIELD_SCALE do
@@ -126,7 +145,7 @@ end]]
 	end
 end]]
 
---[[function Room:unlock_doors(ent)
+--[[function dungeon:unlock_doors(ent)
 	if not ent then
 		for _,door in pairs(self.doors) do
 			door.open = true
@@ -169,6 +188,8 @@ function dungeon:create_starting_room()
 	--local startRoom = Room(Vector(0,0),10,{"S", "W", "E", "N"})
 	local three_times_three = {Vector(0,0),Vector(0,1),Vector(0,2),Vector(1,0),Vector(1,1),Vector(1,2),Vector(2,0),Vector(2,1),Vector(2,2)}
 	local startRoom = Room(Vector(-1,-1),three_times_three)
+	
+	--Room(Vector(2,1),three_times_three)
 	--print(startRoom)
 	--startRoom:create()
 	global.dungeon.startRoom = startRoom
@@ -248,16 +269,30 @@ function dungeon:reload_rooms()
 	end
 end
 
+function dungeon:check_doors()
+	for _,door in pairs(global.dungeon.doors) do
+		if door.open then
+			if door.entity_1 and door.entity_1.valid then
+				door.entity_1.request_to_open("enemy",DOOR_CHECK_INTERVAL_CONST)
+				-- door.entity.request_to_open("enemy",1)
+				-- door.entity.active = false
+			end
+		end
+	end
+end
+
 function dungeon:open_gate(event)
 	if not game then return end
 	local player = game.players[event.player_index]
 	local ent = player.selected
 	if ent and ent.valid and player.can_reach_entity(ent) then
 		if ent.name == "dungeon-gate" then
-			for _,room in pairs(global.dungeon.rooms) do
-				if room:has_door(ent) then
+			for _,door in pairs(global.dungeon.doors) do
+				if not (door.open) and (door.entity_1 == ent or door.entity_2 == ent or door.entity_3 == ent) then
 					print("Room found!")
-					room:unlock_doors(ent)
+					--<room:unlock_doors(ent)
+					door.open = true
+					self:check_doors()
 				end
 			end
 		end

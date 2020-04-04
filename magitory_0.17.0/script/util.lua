@@ -32,6 +32,19 @@ function remove_from_table(tab, element)
 	return newTable, count
 end
 
+function remove_vector_from_table(tab, element)
+	local newTable = {}
+	local count = 0
+	for _,elem in pairs(tab) do
+		if not (elem.x == element.x and elem.y == element.y ) then
+			table.insert(newTable, elem)
+		else
+			count = count + 1
+		end
+	end
+	return newTable, count
+end
+
 function is_empty(tab)
 	if GetTableLength(tab) == 0 then
 		return true
