@@ -60,9 +60,9 @@ end
 
 function Vector:rotate(v,angle)
 	local theta = math.rad(angle)
-  local xp = v.x*math.cos(theta)-v.y*math.sin(theta)
-  local yp = v.x*math.sin(theta)+v.y*math.cos(theta)
-  return Vector(xp,yp):normalized()
+	local xp = v.x*math.cos(theta)-v.y*math.sin(theta)
+	local yp = v.x*math.sin(theta)+v.y*math.cos(theta)
+	return Vector(xp,yp):normalized()
 end
 
 function Vector:stretched(len)

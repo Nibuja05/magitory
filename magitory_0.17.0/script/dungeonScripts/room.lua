@@ -1,4 +1,4 @@
-FIELD_SCALE = 8 --inside scale + 1
+FIELD_SCALE = 10 --inside scale + 1
 
 Room = {}
 Room.__index = Room
@@ -15,11 +15,11 @@ function get_bounding_box(field)
 end	
 
 function Room.new(starting_field,fields)
-	
+	starting_field=starting_field:int()
+	--print(starting_field)
 	Room:createStructure(starting_field,fields)
 	return setmetatable({},Room)
 end
-
 
 function Room:createStructure(starting_field,relative_fields)
 	local absolute_fields = {}
@@ -80,7 +80,7 @@ function Room:createStructure(starting_field,relative_fields)
 		--print("arange",get_table_length(built_vert) + get_table_length(built_hor))
 		local a = math.random(1,get_table_length(built_vert) + get_table_length(built_hor))
 		--print("a" ,a)
-		if a < get_table_length(built_vert) then 
+		if a <= get_table_length(built_vert) then 
 			--find in vert
 			--print("ver"	,tostring(built_vert[a]))
 			
@@ -90,7 +90,7 @@ function Room:createStructure(starting_field,relative_fields)
 		else 
 			--print("hor",tostring(built_hor[a- get_table_length(built_vert)]))
 			--find in hor
-			
+			--print(a- get_table_length(built_vert))
 			self:build_door("hor",built_hor[a- get_table_length(built_vert)])
 		
 			built_hor = remove_vector_from_table(built_hor,built_hor[a- get_table_length(built_vert)])
@@ -98,7 +98,6 @@ function Room:createStructure(starting_field,relative_fields)
 	end
 	
 	--#built_vert + #built_hor
-	
 end
 
 function Room:build_door_entity(direction,position)

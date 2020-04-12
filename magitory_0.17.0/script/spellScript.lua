@@ -49,6 +49,10 @@ function void_on_spell(event)
 	dungeon:tp(game.players[event.player_index])
 end
 
+function fire_on_spell(event)
+	print(get_room_location(Vector(event.position)))
+end
+
 function on_player_used_ward(event)
 	local player = game.players[event.player_index]
 	local consume_item = true
@@ -65,6 +69,8 @@ function on_player_used_ward(event)
 			stone_on_spell(event)
 		elseif spellGui:get_selected(player) == "void_spell" then
 			void_on_spell(event)
+		elseif spellGui:get_selected(player) == "fire_spell" then
+			fire_on_spell(event)
 		else
 			player.print(spellGui:get_selected(player) .." is not supported yet")
 		end

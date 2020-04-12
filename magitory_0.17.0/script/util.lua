@@ -61,6 +61,15 @@ function find_value_in_table(tab, value)
 	return false
 end
 
+function find_vector_in_table(tab, vector)
+	for _,val in pairs(tab) do
+		if val.x == vector.x and val.y == vector.y then
+			return true
+		end
+	end
+	return false
+end
+
 function shuffle_table(tab)
 	for i = #tab, 2, -1 do
 		local j = math.random(i)
@@ -147,4 +156,12 @@ function clean_damage(entity, amount, source)
 		clean_up(entity)
 		return true
 	end
+end
+
+function get_room_location(position) 
+	--local u = Vector(tile_location.x,tile_location.y)
+	local v = position + Vector(FIELD_SCALE/2,FIELD_SCALE/2)
+	local u = v/FIELD_SCALE
+	return u:int()
+	--(tile_location-Vector{x=FIELD_SCALE/2,y=FIELD_SCALE/2})/FIELD_SCALE
 end

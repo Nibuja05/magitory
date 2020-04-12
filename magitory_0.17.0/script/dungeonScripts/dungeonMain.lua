@@ -196,6 +196,11 @@ function dungeon:create_starting_room()
 	--table.insert(global.dungeon.rooms, startRoom)
 end
 
+function dungeon:create_room(startPos)
+	--print(startPos)
+	local new_room = Room(startPos,{Vector(0,0)})
+end
+
 function dungeon:on_tick(event)
 	
 		
@@ -241,7 +246,7 @@ function dungeon:tp(player)
 
 	--game.surfaces["dungeon"].request_to_generate_chunks({0, 0}, 3)
 	--game.surfaces["dungeon"].always_day = true --look for always night
-	print("test init")
+	--print("test init")
 		--if remote.interfaces["RSO"] then -- RSO compatibility
 		--	pcall(remote.call, "RSO", "ignoreSurface", surface_name)
 		--end
@@ -251,14 +256,16 @@ function dungeon:tp(player)
 	end
 end
 
-function dungeon:refresh_rooms(event) 
+---[[function dungeon:refresh_rooms(event) 
 	if event.tick % DOOR_CHECK_INTERVAL_CONST == 0 then
 		--print("Refresh Doors")
-		for _,room in pairs(global.dungeon.rooms) do
-			room:check_doors()
+		for _,door in pairs(global.dungeon.doors) do
+			if door.open then
+				door.
+			end 
 		end
 	end
-end
+end]]
 
 function dungeon:reload_rooms()
 	if global and global.dungeon and global.dungeon.rooms then
@@ -285,13 +292,38 @@ function dungeon:open_gate(event)
 	if not game then return end
 	local player = game.players[event.player_index]
 	local ent = player.selected
+	
 	if ent and ent.valid and player.can_reach_entity(ent) then
 		if ent.name == "dungeon-gate" then
 			for _,door in pairs(global.dungeon.doors) do
 				if not (door.open) and (door.entity_1 == ent or door.entity_2 == ent or door.entity_3 == ent) then
-					print("Room found!")
-					--<room:unlock_doors(ent)
+					--print("Room found!")
+					--room:unlock_doors(ent)
 					door.open = true
+					--if(door.entity_1) then end
+					local room_1 = get_room_location(Vector(door.entity_1.position.x-1,door.entity_1.position.y-1))
+					local room_2 = get_room_location(Vector(door.entity_1.position.x+1,door.entity_1.position.y+1))
+					--print ("room 1")
+					--print (room_1)
+					--print ("room 2")
+					--print (room_2)
+					
+					
+					
+					if not find_vector_in_table(global.dungeon.areas, room_1)
+					then
+						--print ("room 1")
+						self:create_room(room_1)
+					end
+					if not find_vector_in_table(global.dungeon.areas, room_2)
+					then
+						--print ("room 2")
+						self:create_room(room_2)
+					end
+					
+					
+					
+					
 					self:check_doors()
 				end
 			end
@@ -303,7 +335,7 @@ script.on_load(function() dungeon:reload_rooms() end)
 
 --magitory:DefineEvent("on_tick", function(event) dungeon:on_tick(event) end)
 magitory:DefineEvent("on_chunk_generated",function(event) dungeon:on_chunk_generated(event)end)
-magitory:DefineEvent("on_tick", function(event) dungeon:refresh_rooms(event) end)
+magitory:DefineEvent("on_tick", function(event) dungeon:check_doors() end)
 
 magitory:DefineEvent("on_player_created", function(event) dungeon:reload_rooms() end)
 magitory:DefineEvent("on_player_joined_game", function(event) dungeon:reload_rooms() end)
