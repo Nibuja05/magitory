@@ -165,3 +165,45 @@ function get_room_location(position)
 	return u:int()
 	--(tile_location-Vector{x=FIELD_SCALE/2,y=FIELD_SCALE/2})/FIELD_SCALE
 end
+
+function get_random_element_from_list_with_probabilties(list)
+	fullProbability = 0
+	for _,elem in pairs(list) do
+		fullProbability = fullProbability + elem.probality
+	end
+	
+	number = math.random(fullProbability)
+	
+	for _,elem in pairs(list) do
+		if number <= elem.probality then
+			return elem
+		end
+		number = number - elem.probality
+	end
+end
+
+function manipulate_vector_list(list,offset_vector,number_of_turns)
+	local returner = {}
+	
+	for _,vector in pairs(list) do
+		new_vector = vector
+		for i = 1,number_of_turns do
+			new_vector = new_vector:rotate_right()
+		end
+		new_vector = new_vector + offset_vector
+		table.insert(returner,new_vector)
+	end
+	return returner
+end
+
+function check_if_lists_of_vectors_are_disjoint(a,b)
+	for _,vector_a in pairs(a)do
+		for _,vector_b in pairs(b)do
+			if vector_a:__eq(vector_b) then
+				print(vector_a)
+				return false
+			end
+		end
+	end
+	return true
+end	

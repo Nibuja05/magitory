@@ -65,6 +65,16 @@ function Vector:rotate(v,angle)
 	return Vector(xp,yp):normalized()
 end
 
+function Vector:rotate_right()
+	local x = self.y
+	local y = -self.x
+	return Vector(x,y)
+end
+
+function Vector:rotate_left()
+	return self:rotate_right():rotate_right():rotate_right()
+end
+
 function Vector:stretched(len)
 	return self:normalized() * self:__len() * len
 end

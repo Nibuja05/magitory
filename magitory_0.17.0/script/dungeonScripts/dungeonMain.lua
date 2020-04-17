@@ -196,9 +196,9 @@ function dungeon:create_starting_room()
 	--table.insert(global.dungeon.rooms, startRoom)
 end
 
-function dungeon:create_room(startPos)
+function dungeon:create_room(startPos,number_of_turns)
 	--print(startPos)
-	local new_room = Room(startPos,{Vector(0,0)})
+	local new_room = build_random_room(startPos,number_of_turns)
 end
 
 function dungeon:on_tick(event)
@@ -256,7 +256,7 @@ function dungeon:tp(player)
 	end
 end
 
----[[function dungeon:refresh_rooms(event) 
+--[[function dungeon:refresh_rooms(event) 
 	if event.tick % DOOR_CHECK_INTERVAL_CONST == 0 then
 		--print("Refresh Doors")
 		for _,door in pairs(global.dungeon.doors) do
@@ -312,13 +312,16 @@ function dungeon:open_gate(event)
 					
 					if not find_vector_in_table(global.dungeon.areas, room_1)
 					then
-						--print ("room 1")
-						self:create_room(room_1)
+						--print (defines.direction[door.entity_1.direction])
+						number_of_turns = door.entity_1.direction/2+2
+						self:create_room(room_1,number_of_turns)
+						
 					end
 					if not find_vector_in_table(global.dungeon.areas, room_2)
 					then
-						--print ("room 2")
-						self:create_room(room_2)
+						--print (defines.direction[door.entity_1.direction])
+						number_of_turns = door.entity_1.direction/2
+						self:create_room(room_2,number_of_turns)
 					end
 					
 					

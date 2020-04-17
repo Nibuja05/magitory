@@ -5,6 +5,14 @@ Room.__index = Room
 Room_mt = {__call = function(_, ...) return Room.new(...) end }
 setmetatable(Room, Room_mt)
 
+room_blueprints = {}
+simple_room = {name = "simple_room",probality = 10,relative_fields = {Vector(0,0)}}
+table.insert(room_blueprints,simple_room)
+medium_room = {name = "medium_room",probality = 3,relative_fields = {Vector(0,0),Vector(1,0),Vector(0,1),Vector(1,1)}}
+table.insert(room_blueprints,medium_room)
+long_room = {name = "long_room",probality = 2,relative_fields = {Vector(0,0),Vector(1,0),Vector(2,0)}}
+table.insert(room_blueprints,long_room)
+
 function get_bounding_box(field)
 	local x = field.x 
 	local y = field.y
@@ -13,6 +21,24 @@ function get_bounding_box(field)
 	local rightBottom = Vector{x=FIELD_SCALE/2+FIELD_SCALE*x,y=FIELD_SCALE/2+FIELD_SCALE*y}
 	return {leftTop = leftTop,rightBottom = rightBottom}
 end	
+
+function build_random_room(starting_field,number_of_turns)
+	room = nil
+	while room == nil do
+		-- find random room in list
+		local room_blueprint = get_random_element_from_list_with_probabilties(room_blueprints)
+		print(room_blueprint.name)
+		local absolute_fields = manipulate_vector_list(room_blueprint.relative_fields,starting_field,number_of_turns)
+		local relative_fields = manipulate_vector_list(room_blueprint.relative_fields,Vector(0,0),number_of_turns)
+		if check_if_lists_of_vectors_are_disjoint(absolute_fields,global.dungeon.areas) then
+			room = Room(starting_field,relative_fields)
+			print(relative_fields)
+		end
+	end
+	
+	
+	return room
+end
 
 function Room.new(starting_field,fields)
 	starting_field=starting_field:int()
