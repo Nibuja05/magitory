@@ -1,38 +1,17 @@
-fluids = 
-{
-	type = "item-subgroup",
-	name = "magitory_fluids",
-	group = "magitory_base",
-}
-
-testgroup = {
-	group = "magitory_base",
-    type = "item-subgroup",
-	name = "magic_ring"
-}
-
-ward = {
-	group = "magitory_base",
-    type = "item-subgroup",
-	name = "magic_ward"
-}
-
-spell = {
-	group = "magitory_base",
-    type = "item-subgroup",
-	name = "magic_spell"
-}
-
-spellbook = {
-	group = "magitory_base",
-    type = "item-subgroup",
-	name = "magic_spell_book"
-}
-
-data:extend({
-	fluids,
-	testgroup,
-	ward,
-	spell,
-	spellbook,
+function AddSubgroup(name)
+	data:extend({
+	{
+		type = "item-subgroup",
+		name = name,
+		group = "magitory_base",
+	}
 })
+end
+
+AddSubgroup("magitory_mana")
+AddSubgroup("magitory_essence")
+AddSubgroup("magitory_spell")
+AddSubgroup("magitory_item")
+AddSubgroup("magitory_wand")
+AddSubgroup("magitory_crystal")
+AddSubgroup("magitory_spell_book")

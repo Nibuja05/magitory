@@ -1,3 +1,61 @@
+hazelnut_ward_recipe = 
+{
+	type = "recipe",
+	name = "hazelnut_ward_recipe",
+	category = "crafting",
+	enabled = true,
+	
+	ingredients =
+	{
+		{
+			type="item",
+			name="wood",
+			amount=1
+		}
+	},
+	results=
+	{
+		{
+			type="item",
+			name="hazelnut_wand",
+			amount=1
+		}
+	}	,
+	--subgroup = "magic_spell",
+}
+
+spellbook_recipe = 
+{
+	type = "recipe",
+	name = "spellbook_recipe",
+	category = "crafting",
+	enabled = true,
+	
+	ingredients =
+	{
+		{
+			type="item",
+			name="wood",
+			amount=1
+		}
+	},
+	results=
+	{
+		{
+			type="item",
+			name="spellbook",
+			amount=1
+		}
+	}	,
+	--subgroup = "magic_spell",
+}
+
+data:extend({
+	hazelnut_ward_recipe,
+	spellbook_recipe
+})
+
+
 liquid_mana_recipe = 
 {
 	type = "recipe",
@@ -29,7 +87,7 @@ liquid_mana_recipe =
 	main_product= "",
 	icon = "__base__/graphics/icons/fluid/heavy-oil-cracking.png",
 	icon_size = 32,
-	subgroup = "magitory_fluids",
+	subgroup = "magitory_mana",
 	-- order = "b[fluid-chemistry]-a[heavy-oil-cracking]",
 	order = "ab",
 	crafting_machine_tint =

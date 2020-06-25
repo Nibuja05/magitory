@@ -1,9 +1,9 @@
 
-unrefined_mana_resource =    
+--[[unrefined_mana_resource =    
 { 
 	type = "resource",
 	name = "unrefined-mana",
-	icon = "__magitory__/graphics/icons/unrefined-mana.png",
+	icon = "__magitory__/graphics/icons/unrefined_mana.png",
 	icon_size = 32,
 	flags = {"placeable-neutral"},
 	category = "basic-fluid",
@@ -61,20 +61,20 @@ unrefined_mana_resource =
 	tint = {r = 0.0, g = 0.0, b = 0.6},
 	map_color = {r=0.0, g=0.2, b=1.0},
 	map_grid = false
-}
+}]]
 
 unrefined_mana = 
 {
 	type = "fluid",
-	name = "unrefined-mana",
+	name = "unrefined_mana",
 	default_temperature = 15,
 	max_temperature = 100,
 	heat_capacity = "0.2KJ",
 	base_color = {r=0, g=0.0, b=0.6},
 	flow_color = {r=0.7, g=0.7, b=0.7},
-	icon = "__magitory__/graphics/icons/unrefined-mana.png",
-	icon_size = 32,
-	order = "a[fluid]-b[unrefined-mana]",
+	icon = "__magitory__/graphics/icons/unrefined_mana.png",
+	icon_size = 64, icon_mipmaps = 4,
+	order = "a[fluid]-b[unrefined_mana]",
 	pressure_to_speed_ratio = 0.4,
 	flow_to_energy_ratio = 0.59
 }
@@ -82,33 +82,67 @@ unrefined_mana =
 liquid_mana = 
 {
 	type = "fluid",
-	name = "liquid-mana",
+	name = "liquid_mana",
 	default_temperature = 15,
 	max_temperature = 100,
 	heat_capacity = "0.2KJ",
 	base_color = {r=0.1, g=0.5, b=1.0},
 	flow_color = {r=0.0, g=0.0, b=0.7},
-	icon = "__magitory__/graphics/icons/liquid-mana.png",
-	icon_size = 32,
+	icon = "__magitory__/graphics/icons/liquid_mana.png",
+	icon_size = 64, icon_mipmaps = 4,
+	order = "a[fluid]-b[liquid_mana]",
+	pressure_to_speed_ratio = 0.4,
+	flow_to_energy_ratio = 0.59
+}
+
+evaporated_mana = 
+{
+	type = "fluid",
+	name = "evaporated_mana",
+	default_temperature = 150,
+	max_temperature = 800,
+	heat_capacity = "0.2KJ",
+	base_color = {r=0.1, g=0.5, b=1.0},
+	flow_color = {r=0.0, g=0.0, b=0.7},
+	icon = "__magitory__/graphics/icons/evaporated_mana.png",
+	icon_size = 64, icon_mipmaps = 4,
 	order = "a[fluid]-b[liquid_mana]",
 	pressure_to_speed_ratio = 0.4,
 	flow_to_energy_ratio = 0.59
 }
   
-unrefined_mana_autoplace =
+
+pure_mana = 
+{
+	type = "fluid",
+	name = "pure_mana",
+	default_temperature = 15,
+	max_temperature = 100,
+	heat_capacity = "0.2KJ",
+	base_color = {r=0.1, g=0.5, b=1.0},
+	flow_color = {r=0.0, g=0.0, b=0.7},
+	icon = "__magitory__/graphics/icons/pure_mana.png",
+	icon_size = 64, icon_mipmaps = 4,
+	order = "a[fluid]-b[liquid_mana]",
+	pressure_to_speed_ratio = 0.4,
+	flow_to_energy_ratio = 0.59
+}
+  
+  
+--[[unrefined_mana_autoplace =
 {
 	type = "autoplace-control",
 	name = "unrefined-mana",
 	richness = true,
 	order = "b-a",
 	category = "resource"
-}
+}]]
 
 pylon = {
 	name = "pylon",
 	type = "simple-entity",
-	icon = "__magitory__/graphics/icons/unrefined-mana.png",
-	icon_size = 32,
+	icon = "__magitory__/graphics/icons/unrefined_mana.png",
+	icon_size = 64, icon_mipmaps = 4,
 	count_as_rock_for_filtered_deconstruction = true,
 	picture = {type = "SpriteVariations",filename = "__magitory__/graphics/entity/pylon.png",	size = {32,46},},
 	tile_width = 1,
@@ -124,10 +158,10 @@ pylon = {
 	selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
 }
 
-dungeon_gate_vertical = {
+--[[dungeon_gate_vertical = {
 	name = "dungeon_gate_vertical",
 	type = "simple-entity",
-	icon = "__magitory__/graphics/icons/unrefined-mana.png",--
+	icon = "__magitory__/graphics/icons/unrefined_mana.png",--
 	icon_size = 32,--
 	count_as_rock_for_filtered_deconstruction = false,
 	max_health = 0.1,
@@ -149,12 +183,12 @@ dungeon_gate_vertical = {
 		},
 	collision_box = {{-0.5, -1.5}, {0.5, 1.5}},
 	selection_box = {{-0.5, -1.5}, {0.5, 1.5}},
-}
+}]]
 
-dungeon_gate_horizontal = {
+--[[dungeon_gate_horizontal = {
 	name = "dungeon_gate_horizontal",
 	type = "simple-entity",
-	icon = "__magitory__/graphics/icons/unrefined-mana.png",--
+	icon = "__magitory__/graphics/icons/unrefined_mana.png",--
 	icon_size = 32,--
 	count_as_rock_for_filtered_deconstruction = false,
 	max_health = 0.1,
@@ -176,7 +210,7 @@ dungeon_gate_horizontal = {
 		},
 	collision_box = {{-1.5, -0.5}, {1.5, 0.5}},
 	selection_box = {{-1.5, -0.5}, {1.5, 0.5}},
-}
+}]]
 
 dungeon_gate = table.deepcopy(data.raw.gate.gate)
 dungeon_gate.name = "dungeon-gate"
@@ -184,11 +218,14 @@ dungeon_gate.order = "a"
 
 data:extend({
 	unrefined_mana,
-	unrefined_mana_resource,
-	unrefined_mana_autoplace,
 	liquid_mana,
+	evaporated_mana,
+	pure_mana,
+	--unrefined_mana_resource,
+	--unrefined_mana_autoplace,
+	
 	pylon,
-	dungeon_gate_vertical,
-	dungeon_gate_horizontal,
-	dungeon_gate,
+	--dungeon_gate_vertical,
+	--dungeon_gate_horizontal,
+	dungeon_gate
 })

@@ -86,7 +86,7 @@ end
 function on_player_used_ward(event)
 	local player = game.players[event.player_index]
 	local consume_item = true
-	if(event.item.subgroup.name == "magic_ward") then
+	if(event.item.subgroup.name == "magitory-magic_wand") then
 		if spellGui:get_selected(player) == "no_spellbook" then
 			player.print("no spellbook")
 			consume_item = false

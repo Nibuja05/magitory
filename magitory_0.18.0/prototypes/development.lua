@@ -88,10 +88,10 @@ testring3 = {
 	subgroup = "magic_ring",
 }
 
-data:extend({
-	testiteam,
-	testrecipe,
-	testring,
-	testring2,
-	testring3
-})
+--data:extend({
+--	testiteam,
+--	testrecipe,
+--	testring,
+--	testring2,
+--	testring3
+--})
