@@ -1,0 +1,11 @@
+{
+  "name": "magitory",
+  "version": "1.1",
+  "title": "magitory",
+  "author": "Nibuja",
+  "contact": "",
+  "homepage": "",
+  "factorio_version": "1.1",
+  "dependencies": ["base >= 1.1"],
+  "description": ""
+}
