@@ -85,6 +85,11 @@ def main_develop():
         data["running_version"] = data["running_version"] + 1
     with open("config/config_var.json", "w") as f:
         json.dump(data, f, indent=4)
+    print("increased running_version")
+    if not os.path.exists("out"):
+        os.mkdir("out")
+    zip_file = glob.glob("temp/*.zip")[0]
+    shutil.move(zip_file, "out/" + "/".join(zip_file.split("/")[1:]))
 
 
 def move_to_mod():
