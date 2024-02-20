@@ -2,6 +2,7 @@ import os
 import shutil
 import json
 import glob
+import subprocess
 
 global_folder = ""
 
@@ -92,6 +93,15 @@ def main_develop():
     shutil.move(zip_file, "out/" + "/".join(zip_file.split("/")[1:]))
 
 
+def start_factorio():
+    # start factorio
+    factorio_path = json.load(
+        open("config/config_local.json"))["factorio_path"]
+    factorio_path = '"' + factorio_path + '"'
+    ret = os.system(factorio_path)
+    print(ret)
+
+
 def move_to_mod():
     mod_path = os.path.join(os.getenv('APPDATA'), "Factorio/mods")
     # move temp/name.zip to mod/
@@ -107,6 +117,8 @@ def main_test():
     print("zipped directory")
     move_to_mod()
     print("moved zip to local")
+    print("starting factorio")
+    start_factorio()
 
 
 if __name__ == "__main__":
