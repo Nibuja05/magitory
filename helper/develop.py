@@ -57,11 +57,15 @@ def create_control_lua():
     content = []
     src = "mod/scripts/"
     dst = global_folder
-    for folder in glob.glob(src + "*/"):
-        folder = folder.replace("\\", "/")
-        folder = folder[4:]
+    folders = [folder.replace("\\", "/")[4:]
+               for folder in glob.glob(src + "*/")]
+    folders.remove('scripts/util/')
+    folders.remove('scripts/main/')
+    folders = ['scripts/util/', 'scripts/main/']+folders
+    for folder in folders:
         line = "require \"" + folder + "control\"\n"
         content.append(line)
+    content.append("magitory:ReloadEvents()")
     with open(dst + "control.lua", "w") as f:
         f.writelines(content)
 
